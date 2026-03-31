@@ -1,0 +1,2988 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Cyber Security Coursework Portfolio
+  </title>
+  <style>
+   :root{--bg:#f6f7fb;--card:#fff;--text:#172033;--muted:#5b6474;--line:#d8dde8;--accent:#203a70;}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:980px;margin:0 auto;padding:32px 20px 72px}
+.hero{background:linear-gradient(180deg,#fff,#f3f6ff);border:1px solid var(--line);border-radius:20px;padding:36px 28px;margin-bottom:28px;box-shadow:0 10px 30px rgba(20,30,50,.06)}
+.hero h1{margin:0 0 8px;font-size:2.4rem;line-height:1.15}
+.hero h2{margin:0;font-size:1.2rem;font-weight:700;color:var(--accent)}
+.hero p{margin:8px 0 0;color:var(--muted)}
+section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 22px;margin:22px 0;box-shadow:0 8px 24px rgba(20,30,50,.05)}
+h1,h2,h3,h4{line-height:1.25}
+section>h1{font-size:2rem;margin:0 0 12px;color:var(--accent)}
+section>h2{font-size:1.5rem;margin:20px 0 8px;color:var(--accent)}
+section>h3{font-size:1.15rem;margin:18px 0 6px}
+p{margin:10px 0;white-space:pre-wrap}
+.figure{margin:16px 0 22px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fbfcff}
+.figure img{display:block;max-width:100%;height:auto;margin:0 auto;background:#fff}
+.figure figcaption{padding:12px 14px;border-top:1px solid var(--line);font-weight:700;color:#23324d}
+.table-wrap{overflow-x:auto;margin:16px 0 22px}
+table{width:100%;border-collapse:collapse;font-size:.96rem;background:#fff}
+th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top}
+th{background:#eef3ff;text-align:left}
+.refs p{font-size:.95rem}
+.small-gap{margin-top:4px}
+.top-link{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;text-decoration:none;padding:10px 14px;border-radius:999px;font-size:.92rem;box-shadow:0 8px 18px rgba(0,0,0,.18)}
+@media (max-width:700px){.container{padding:18px 14px 64px}.hero{padding:26px 18px}.hero h1{font-size:1.9rem}}
+  </style>
+ </head>
+ <body>
+  <div class="container" id="top">
+   <div class="hero">
+    <h1>
+     Cyber Security
+    </h1>
+    <h2>
+     Coursework Portfolio
+    </h2>
+    <p>
+     Brian James Khalawon (KHA22530089)
+    </p>
+   </div>
+   <section>
+    <h1>
+     Week 5: Web Application Security
+    </h1>
+    <p>
+     This lab teaches how to setup a WordPress security assessment lab using Wpscan on a kali Linux virtual machine and a WordPress server virtual machine. WPScan is a security scanner specifically designed for WordPress which unlike general purpose vulnerability scanners such as Nessus or Nmap, is built specifically to enumerate WordPress installations, examine installed plugins and themes against its CVE database, and perform authentication attacks on specified targets. The main difference between WPscan and a general scanner is that a general scanner would identify that port 80 is open and Apache is running, but it would not identify that the Salon Booking System plugin version 10.9.3 has 26 vulnerabilities with actions on how to stop it. WPscan's API key integration connects live scans to a vulnerability database which is up to date and maintained by the security community [1].
+    </p>
+    <p>
+     Make a new user with the administrator role so that they can install plugins and themes. We are going to set a weak password found from the Wikipedia weak password list [4].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 1 - Create New User called Brian with password as Admin" loading="lazy" src="p003_Figure_1_-_Create_New_User_called_Brian_with_password_as_Admin.png"/>
+     <figcaption>
+      Figure 1 - Create New User called Brian with password as Admin
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 2 - Administartor Role" loading="lazy" src="p004_Figure_2_-_Administartor_Role.png"/>
+     <figcaption>
+      Figure 2 - Administartor Role
+     </figcaption>
+    </figure>
+    <p>
+     Install vulnerable plugins and themes which are going to be scanned with WPscan.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 3 - Vulnerable Plugin [2]" loading="lazy" src="p004_Figure_3_-_Vulnerable_Plugin_2.png"/>
+     <figcaption>
+      Figure 3 - Vulnerable Plugin [2]
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 4 - Vulnerable Theme" loading="lazy" src="p004_Figure_4_-_Vulnerable_Theme.jpeg"/>
+     <figcaption>
+      Figure 4 - Vulnerable Theme
+     </figcaption>
+    </figure>
+    <h2>
+     1: Vulnerability Database Update and Plugin Enumeration
+    </h2>
+    <p>
+     Update WPscan Database
+    </p>
+    <p>
+     This is used so the Vulnerability database contains the latest information on vulnerabilities found in plugins
+    </p>
+    <figure class="figure">
+     <img alt="Figure 5 - WPscan Updated" loading="lazy" src="p005_Figure_5_-_WPscan_Updated.jpeg"/>
+     <figcaption>
+      Figure 5 - WPscan Updated
+     </figcaption>
+    </figure>
+    <p>
+     Connect the WPscan API key to wpscan
+    </p>
+    <p>
+     This is used to access the database of vulnerabilities and check if there is any vulnerabilities in the plugins or themes
+    </p>
+    <figure class="figure">
+     <img alt="Figure 6 - API Key" loading="lazy" src="p005_Figure_6_-_API_Key.jpeg"/>
+     <figcaption>
+      Figure 6 - API Key
+     </figcaption>
+    </figure>
+    <p>
+     WPScan WordPress URL enumerate -p
+    </p>
+    <p>
+     WPScan checks its database of vulnerabilities for the latest vulnerabilities and identifies plugins that have been installed.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 7 - Output Page 1" loading="lazy" src="p006_Figure_7_-_Output_Page_1.png"/>
+     <figcaption>
+      Figure 7 - Output Page 1
+     </figcaption>
+    </figure>
+    <p>
+     This image shows the plugin installed and the number of vulnerabilities identified along with fixes.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 8 - Identified Plugin Vulnerabilities" loading="lazy" src="p007_Figure_8_-_Identified_Plugin_Vulnerabilities.jpeg"/>
+     <figcaption>
+      Figure 8 - Identified Plugin Vulnerabilities
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 9 - Identified Plugin Vulnerabilities page 2" loading="lazy" src="p007_Figure_9_-_Identified_Plugin_Vulnerabilities_page_2.jpeg"/>
+     <figcaption>
+      Figure 9 - Identified Plugin Vulnerabilities page 2
+     </figcaption>
+    </figure>
+    <h2>
+     2: Full Scan for Plugins Themes and WordPress Version Detection
+    </h2>
+    <p>
+     --Enumerate vp,vt,tt
+    </p>
+    <p>
+     The command in figure 10 performs a comprehensive scan that targets Vulnerable plugins using “VP”, Vulnerable Themes are targeted with “VT” while “TT” lists all the themes and attempts to find associated vulnerabilities.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 10 - wpscan --url http://192.168.123.65 --enumerate vp,vt,tt" loading="lazy" src="p008_Figure_10_-_wpscan_--url_http192.168.123.65_--enumerate_vpvttt.png"/>
+     <figcaption>
+      Figure 10 - wpscan --url http://192.168.123.65 --enumerate vp,vt,tt
+     </figcaption>
+    </figure>
+    <p>
+     The theme being used has been identified along with 1 vulnerability related to reflected cross site scripting
+    </p>
+    <figure class="figure">
+     <img alt="Figure 11 - wpscan --url http://192.168.123.65 --enumerate vp,vt,tt (Identified Theme and associated Vulnerabilities)" loading="lazy" src="p009_Figure_11_-_wpscan_--url_http192.168.123.65_--enumerate_vpvttt_Identified_Theme_.png"/>
+     <figcaption>
+      Figure 11 - wpscan --url http://192.168.123.65 --enumerate vp,vt,tt (Identified Theme and associated Vulnerabilities)
+     </figcaption>
+    </figure>
+    <p>
+     This Image also contains the plugins in use along with 26 vulnerabilities such as reflected cross-site scripting and sensitive data disclosure.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 12 - wpscan --url http://192.168.123.65 --enumerate vp,vt,tt (Plugins and Vulnerabilities)" loading="lazy" src="p009_Figure_12_-_wpscan_--url_http192.168.123.65_--enumerate_vpvttt_Plugins_and_Vulne.png"/>
+     <figcaption>
+      Figure 12 - wpscan --url http://192.168.123.65 --enumerate vp,vt,tt (Plugins and Vulnerabilities)
+     </figcaption>
+    </figure>
+    <p>
+     More plugin Vulnerabilities
+    </p>
+    <figure class="figure">
+     <img alt="Figure 14 - WPscan plugin vulnerability page 3" loading="lazy" src="p010_Figure_14_-_WPscan_plugin_vulnerability_page_3.jpeg"/>
+     <figcaption>
+      Figure 14 - WPscan plugin vulnerability page 3
+     </figcaption>
+    </figure>
+    <p>
+     This page contains the theme WordPress is using and the reflected cross site scripting vulnerability it found.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 15- WPscan theme vulnerabilities" loading="lazy" src="p010_Figure_15-_WPscan_theme_vulnerabilities.png"/>
+     <figcaption>
+      Figure 15- WPscan theme vulnerabilities
+     </figcaption>
+    </figure>
+    <h3>
+     WPScan Enumeration (VP, VT, AP, TT Scans) CIA Triad Impact
+    </h3>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – Breached
+       </th>
+       <th>
+        Availability – High Risk
+       </th>
+      </tr>
+      <tr>
+       <td>
+        The WPscan Enumeration reveals the usernames and the names and versions of the plugins and themes which give attackers a detailed guide of the targets system without any authentication
+       </td>
+       <td>
+        Knowing exact plugin versions allows an attacker to identify unpatched vulnerabilities such as SQL injection or privilege escalation, which could be used to modify database records or inject malicious content.
+       </td>
+       <td>
+        Certain vulnerabilities were identified like Cross-Site Request Forgery and unauthorised file upload, could be used to corrupt or delete site content and cause service disruption
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     BruteForcing Login Passwords
+    </h2>
+    <p>
+     WPSCAN Brute force Login
+    </p>
+    <p>
+     The command in Figure 16 attempts to brute force login to a account called “Brian” on WordPress using the list of passwords contained in passwords.txt.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 16- wpscan --url http://192.168.123.65 --passwords /home/kali/Desktop/passwords.txt --usernames Brian" loading="lazy" src="p011_Figure_16-_wpscan_--url_http192.168.123.65_--passwords_homekaliDesktoppasswords..jpeg"/>
+     <figcaption>
+      Figure 16- wpscan --url http://192.168.123.65 --passwords /home/kali/Desktop/passwords.txt --usernames Brian
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 17 - Password List that is being used" loading="lazy" src="p012_Figure_17_-_Password_List_that_is_being_used.png"/>
+     <figcaption>
+      Figure 17 - Password List that is being used
+     </figcaption>
+    </figure>
+    <p>
+     The output shows that a valid combination of credentials was found saying “Username: Brian” and “Password: admin”
+    </p>
+    <figure class="figure">
+     <img alt='Figure 18- Output of "wpscan --url http://192.168.123.65 --passwords /home/kali/Desktop/passwords.txt --usernames Brian"' loading="lazy" src="p013_Figure_18-_Output_of_wpscan_--url_http192.168.123.65_--passwords_homekaliDesktop.png"/>
+     <figcaption>
+      Figure 18- Output of "wpscan --url http://192.168.123.65 --passwords /home/kali/Desktop/passwords.txt --usernames Brian"
+     </figcaption>
+    </figure>
+    <h3>
+     Brute Force Attack (Brian / admin) CIA Triad Impact
+    </h3>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – Breached
+       </th>
+       <th>
+        Availability – High Risk
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Gaining valid administrator credentials exposes all user data, email addresses and any private content managed through the WordPress dashboard
+       </td>
+       <td>
+        An authenticated administrator can install malicious plugins, modify page content, or alter site settings and directly compromise the trustworthiness of all data
+       </td>
+       <td>
+        An attacker with administrator access could deactivate all plugins, delete posts, pages or corrupt the database
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     4: Scanning with API Key for Detailed Vulnerabilities
+    </h2>
+    <p>
+     Using a API key to find detailed vulnerabilities
+    </p>
+    <p>
+     The AP option enumerates all plugins and checks each one in the WPscan vulnerability database
+    </p>
+    <figure class="figure">
+     <img alt="Figure 19 - API Token Enumerate AP" loading="lazy" src="p014_Figure_19_-_API_Token_Enumerate_AP.png"/>
+     <figcaption>
+      Figure 19 - API Token Enumerate AP
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 18 - WPScan API-assisted vulnerability enumeration output" loading="lazy" src="p015_Figure_18_-_WPScan_API-assisted_vulnerability_enumeration_output.png"/>
+     <figcaption>
+      Figure 18 - WPScan API-assisted vulnerability enumeration output
+     </figcaption>
+    </figure>
+    <p>
+     Excluding specific scans and setting a delay
+    </p>
+    <p>
+     Excluding specific scans is used for focusing on components that are likely to have vulnerabilities such as plugins and themes due to them being updated often and increasing the risk of containing exploitable code. The benefits behind this is that it reduces scan time and reducing the impact of server resources and network traffic.
+    </p>
+    <p>
+     The throttle on the other hand creates a delay between each http request sent by the WPscan. This is used to avoid detection because the delay makes the scan appear seem more like regular user traffic and is less likely to get blocked. A benefit is that it reduces server strain
+    </p>
+    <figure class="figure">
+     <img alt="Figure 20 - Throttle and Excluding Scan Types" loading="lazy" src="p016_Figure_20_-_Throttle_and_Excluding_Scan_Types.png"/>
+     <figcaption>
+      Figure 20 - Throttle and Excluding Scan Types
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 21 -Throttle/Delay Output Themes" loading="lazy" src="p016_Figure_21_-ThrottleDelay_Output_Themes.png"/>
+     <figcaption>
+      Figure 21 -Throttle/Delay Output Themes
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 22 - Plugin Vulnerabilities" loading="lazy" src="p017_Figure_22_-_Plugin_Vulnerabilities.png"/>
+     <figcaption>
+      Figure 22 - Plugin Vulnerabilities
+     </figcaption>
+    </figure>
+    <h2>
+     Security Implications
+    </h2>
+    <p>
+     The 26 plugin vulnerabilities and the Theme vulnerability that were found critically affect the security of the system as information about these vulnerabilities are on WPscan and guides on how to exploit them. These could be used to commit SQL injections to steal user data from the database and 1 of the vulnerabilities include a stored cross site scripting attack which users with administrator access could use to commit these attacks. The best way to solve this is to update the plugins and themes.
+    </p>
+    <h2>
+     Comparison Table between VP, VT, AP, TT
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        VP
+       </th>
+       <th>
+        VT
+       </th>
+       <th>
+        AP
+       </th>
+       <th>
+        TT
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Scans vulnerable Plugins only
+       </td>
+       <td>
+        Scans Vulnerable Themes only
+       </td>
+       <td>
+        Scans all plugins regardless of the presence of vulnerabilities
+       </td>
+       <td>
+        Scans all themes regardless of vulnerabilities
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Much quicker than scanning all plugins
+       </td>
+       <td>
+        Much quicker than scanning all themes
+       </td>
+       <td>
+        Slower than scanning vulnerable plugins only
+       </td>
+       <td>
+        Slower than scanning vulnerable themes.
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Week 5 Further Learning: (EXPLOTING VULNERABILITIES)
+    </h2>
+    <p>
+     This section will show one of the exploits found using Wpscan be exploited to show the dangers of not implementing solutions provided by WPscan. This section will cover a XSS attack being executed on the Salon booking plugin installed on the WordPress site [2]. The reason why this vulnerability exists is because the plugin does not check or clean the input and settings, which could allow high privilege users such as admin to perform Stored Cross-Site Scripting attacks [2] [3].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 23 - Vulnerability Description [3]" loading="lazy" src="p018_Figure_23_-_Vulnerability_Description_3.jpeg"/>
+     <figcaption>
+      Figure 23 - Vulnerability Description [3]
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1: Go to the services page of the salon plugin
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 24 - Services Section Of the Plugin" loading="lazy" src="p018_Figure_24_-_Services_Section_Of_the_Plugin.png"/>
+     <figcaption>
+      Figure 24 - Services Section Of the Plugin
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: go to the “Title” field
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 25 - Title Field" loading="lazy" src="p018_Figure_25_-_Title_Field.png"/>
+     <figcaption>
+      Figure 25 - Title Field
+     </figcaption>
+    </figure>
+    <h3>
+     Step 3: Change the title from beard trim to &amp;lt;img src=x onerror=alert(1)&amp;gt;
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 26- Beard Trim is the Title" loading="lazy" src="p018_Figure_26-_Beard_Trim_is_the_Title.png"/>
+     <figcaption>
+      Figure 26- Beard Trim is the Title
+     </figcaption>
+    </figure>
+    <p>
+     Title has been changed to &amp;lt;img src=x onerror=alert(1)&amp;gt;
+    </p>
+    <figure class="figure">
+     <img alt="Figure 27 - Title Changed to Code" loading="lazy" src="p019_Figure_27_-_Title_Changed_to_Code.png"/>
+     <figcaption>
+      Figure 27 - Title Changed to Code
+     </figcaption>
+    </figure>
+    <h3>
+     Step 4 go to the assistant’s page and select one of the assistants to edit
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 28- Assistant section showing 2 Assistants" loading="lazy" src="p019_Figure_28-_Assistant_section_showing_2_Assistants.png"/>
+     <figcaption>
+      Figure 28- Assistant section showing 2 Assistants
+     </figcaption>
+    </figure>
+    <p>
+     Click on limit reservations to the following services
+    </p>
+    <figure class="figure">
+     <img alt="Figure 29 - Limiting Reservations for Mario" loading="lazy" src="p019_Figure_29_-_Limiting_Reservations_for_Mario.png"/>
+     <figcaption>
+      Figure 29 - Limiting Reservations for Mario
+     </figcaption>
+    </figure>
+    <p>
+     Output of the XSS Attack:
+    </p>
+    <p>
+     The data has entered the web application through an untrusted source through a web request, and the data has been included in dynamic content (The box) and is sent to a web user without being checked for harmful content
+    </p>
+    <figure class="figure">
+     <img alt="Figure 30 - Output of the XSS Attack" loading="lazy" src="p020_Figure_30_-_Output_of_the_XSS_Attack.png"/>
+     <figcaption>
+      Figure 30 - Output of the XSS Attack
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 31 - Image Icon" loading="lazy" src="p020_Figure_31_-_Image_Icon.png"/>
+     <figcaption>
+      Figure 31 - Image Icon
+     </figcaption>
+    </figure>
+    <h3>
+     Stored XSS Exploit (Salon Booking Plugin) CIA Triad Impact
+    </h3>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality – At risk
+       </th>
+       <th>
+        Integrity – Breached
+       </th>
+       <th>
+        Avaliability – Indirect Risk
+       </th>
+      </tr>
+      <tr>
+       <td>
+        stored XSS payload’s could steal session cookies from anyone who visits the website, including other administrators which can lead to account takeover without needing credentials
+       </td>
+       <td>
+        An authenticated administrator can install malicious plugins, modify page content, or alter site settings and compromise the trustworthiness of all data
+       </td>
+       <td>
+        An attacker with administrator access could deactivate all plugins, delete posts, pages or corrupt the database
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Reflection
+    </h2>
+    <p>
+     This lab has taught me where WordPress vulnerabilities are discovered in the form of plugins and vulnerabilities and how to target them using WPscan such as “vp” for vulnerable plugins and “vt” for vulnerable themes. I have also been reminded of the importance of updating plugins since when I downloaded the latest version of any plugins or themes, there were no vulnerabilities. When using older versions however, many exploits were found and because many websites use WordPress, these vulnerabilities could be exploited to not only harm businesses but customers. The scanning method and what you scan is also important because if you scan all plugins then you trade much more time in return for more results. If you scan vulnerable plugins only, then you reduce that time in exchange for not scanning everything. I have also learnt the importance of using the API key when scanning because it provides access to WPscan’s database of vulnerabilities and will give vulnerabilities of what you are using.
+    </p>
+    <h2>
+     Strengths and Weaknesses
+    </h2>
+    <p>
+     The strengths of WPscan is that the API Key provides real time vulnerability data instead of relying on outdated local signatures. The output of vulnerabilities provide CVE References and version patches which map directly to actions to patch these exploits.  The limitations are that WPscan only works with WordPress. Because it uses a database, it is not good for locating zero-day exploits and the API can only be used 25 times a day. Brute forcing can take time if the password is strong.
+    </p>
+   </section>
+   <section>
+    <h1>
+     Week 7: OWASP Juice Shop
+    </h1>
+    <p>
+     OWASP Juice shop is a web application designed to be insecure to mimic an actual exploitable web application and is used to practise exploiting vulnerabilities and teaches the more practical elements of cyber security like SQL Injections, executing Cross Site Scripting [6]. Burp Suite is used as a supporting tool because it acts as an intercepting HTTP proxy between the browser and the server and allows every request or response to be captured, inspected, and modified before it is sent which is important for testing vulnerabilities that cannot be seen from the browser's interface normally , such as manipulating JSON fields in registration requests or removing specific fields  from password change requests [7].
+    </p>
+    <h2>
+     Exercise 1:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 32 - Find Carefully Hidden Scoreboard" loading="lazy" src="p021_Figure_32_-_Find_Carefully_Hidden_Scoreboard.png"/>
+     <figcaption>
+      Figure 32 - Find Carefully Hidden Scoreboard
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1: Go on inspect, click on the sources tab, select main.js and type in “path” one of the results should be the score-board
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 33- Path Found for Scoreboard" loading="lazy" src="p022_Figure_33-_Path_Found_for_Scoreboard.jpeg"/>
+     <figcaption>
+      Figure 33- Path Found for Scoreboard
+     </figcaption>
+    </figure>
+    <h3>
+     Output: When you add “/score-board” to the url, you will be taken to the scoreboard and juice shop will tell you that the challenge has been completed.
+    </h3>
+    <figure class="figure">
+     <img alt='Figure 34 - URL Contains "Score-board"' loading="lazy" src="p022_Figure_34_-_URL_Contains_Score-board.png"/>
+     <figcaption>
+      Figure 34 - URL Contains "Score-board"
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 35 - Challenge Completed" loading="lazy" src="p022_Figure_35_-_Challenge_Completed.png"/>
+     <figcaption>
+      Figure 35 - Challenge Completed
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 1 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – Indirect Risk
+       </th>
+       <th>
+        Availability - Minimal
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Hidden Internal routes are exposed to users who are not logged in
+       </td>
+       <td>
+        Discovering hidden routes enables further attacks especially if admin routes are found.
+       </td>
+       <td>
+        Not much risk
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 2: Create New Admin User
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 36 - Create New Admin User Challenge (3 Star)" loading="lazy" src="p027_Figure_45_-_Acess_Admin_Challenge_Completed.jpeg"/>
+     <figcaption>
+      Figure 36 - Create New Admin User Challenge (3 Star)
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1: Create new user on the Register page
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 37 - Registering an New User" loading="lazy" src="p023_Figure_37_-_Registering_an_New_User.png"/>
+     <figcaption>
+      Figure 37 - Registering an New User
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: Ensure Burpsuite got the Request for login
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 38 - Burpsuite Got the details we Entered" loading="lazy" src="p024_Figure_38_-_Burpsuite_Got_the_details_we_Entered.png"/>
+     <figcaption>
+      Figure 38 - Burpsuite Got the details we Entered
+     </figcaption>
+    </figure>
+    <h3>
+     Step 3:
+    </h3>
+    <p>
+     Copy request to repeater, change the email and add a field called “role”. In that role enter admin. The “role” field is used to determine the access level of a user.
+    </p>
+    <figure class="figure">
+     <img alt='Figure 39 - "Role: admin" has been added' loading="lazy" src="p025_Figure_39_-_Role_admin_has_been_added.png"/>
+     <figcaption>
+      Figure 39 - "Role: admin" has been added
+     </figcaption>
+    </figure>
+    <h3>
+     Step 4: Once “Repeat” is pressed, your new account should be updated to admin because we changed the role from “customer” to “Admin”
+    </h3>
+    <figure class="figure">
+     <img alt='Figure 40 - New User has the role "Admin' loading="lazy" src="p025_Figure_40_-_New_User_has_the_role_Admin.png"/>
+     <figcaption>
+      Figure 40 - New User has the role "Admin
+     </figcaption>
+    </figure>
+    <h2>
+     Proof of completion
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 41 - Challenge 2 Completed" loading="lazy" src="p026_Figure_41_-_Challenge_2_Completed.png"/>
+     <figcaption>
+      Figure 41 - Challenge 2 Completed
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt='Figure 42 - New Admin User "brianadmin@roehampton.com" has been created' loading="lazy" src="p026_Figure_42_-_New_Admin_User_brianadminroehampton.com_has_been_created.jpeg"/>
+     <figcaption>
+      Figure 42 - New Admin User "brianadmin@roehampton.com" has been created
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 2 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – Breached
+       </th>
+       <th>
+        Availability – High Risk
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Gaining admin access exposes registered user emails, hashed passwords and order history.
+       </td>
+       <td>
+        As an authenticated admin, the attacker can modify user and product data which would erode the trust of available data
+       </td>
+       <td>
+        An admin account could be used to delete all products or corrupt the database schema
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 3: Find Admin Page
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 43 - Challenge 3: Find Admin Page" loading="lazy" src="p027_Figure_43_-_Challenge_3_Find_Admin_Page.png"/>
+     <figcaption>
+      Figure 43 - Challenge 3: Find Admin Page
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1: Go on inspect, click on the sources tab, select main.js and type in “path” one of the results should be “Administration”
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 44 - Administration Path Found" loading="lazy" src="p027_Figure_44_-_Administration_Path_Found.png"/>
+     <figcaption>
+      Figure 44 - Administration Path Found
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 45 - Acess Admin Challenge Completed" loading="lazy" src="p027_Figure_45_-_Acess_Admin_Challenge_Completed.jpeg"/>
+     <figcaption>
+      Figure 45 - Acess Admin Challenge Completed
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 3 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – At Risk
+       </th>
+       <th>
+        Availability – at risk
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Gaining admin access exposes registered user emails, hashed passwords and order history.
+       </td>
+       <td>
+        As an authenticated admin, the attacker can modify user reviews and product reviews
+       </td>
+       <td>
+        Administrator controls could be used to lock out customers
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 4:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 46 - Challenge 4: View Another Users Basket" loading="lazy" src="p028_Figure_46_-_Challenge_4_View_Another_Users_Basket.png"/>
+     <figcaption>
+      Figure 46 - Challenge 4: View Another Users Basket
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1: Login to an account, go to the basket page and open up session tab with the inspect tab open.
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 47 - Inspect Tab open with the Basket ID" loading="lazy" src="p028_Figure_47_-_Inspect_Tab_open_with_the_Basket_ID.png"/>
+     <figcaption>
+      Figure 47 - Inspect Tab open with the Basket ID
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: Change the Basket ID(bid) to another number like 1 or 2. After that reload the page.
+    </h3>
+    <figure class="figure">
+     <img alt='Figure 48 - Basket ID Changed to "2"' loading="lazy" src="p028_Figure_48_-_Basket_ID_Changed_to_2.png"/>
+     <figcaption>
+      Figure 48 - Basket ID Changed to "2"
+     </figcaption>
+    </figure>
+    <h3>
+     Output (This shows another customers purchase details which consists of 2 orders of raspberry juice. The limitation of this is that it does not give more details such as the user who ordered it which if it did then a hacker could have made phishing page and send an email to the user explaining that something is wrong with their order.)
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 49 - Challenge completed and someone else’s basket is displayed" loading="lazy" src="p029_Figure_49_-_Challenge_completed_and_someone_elses_basket_is_displayed.png"/>
+     <figcaption>
+      Figure 49 - Challenge completed and someone else’s basket is displayed
+     </figcaption>
+    </figure>
+    <h3>
+     Output (This shows another customer’s purchase detail with BasketID 5)
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 117 - BasketID 5 purchase details from another customer account" loading="lazy" src="p029_Figure_117_-_BasketID_5_purchase_details_from_another_customer_account.png"/>
+     <figcaption>
+      Figure 117 - BasketID 5 purchase details from another customer account
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 4 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – At Risk
+       </th>
+       <th>
+        Availability – Minimal
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Another Customers order details are exposed
+       </td>
+       <td>
+        If its possible to edit the basket, attackers could add or remove items.
+       </td>
+       <td>
+        The attack does not directly disrupt availability
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 5:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 50 - Challenge 5: Login As Admin" loading="lazy" src="p030_Figure_50_-_Challenge_5_Login_As_Admin.png"/>
+     <figcaption>
+      Figure 50 - Challenge 5: Login As Admin
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1:
+    </h3>
+    <p>
+     Attempt to login as a admin by guessing the email and password once
+    </p>
+    <figure class="figure">
+     <img alt='Figure 51 - Unsuccessful log in using "admin user"' loading="lazy" src="p031_Figure_51_-_Unsuccessful_log_in_using_admin_user.png"/>
+     <figcaption>
+      Figure 51 - Unsuccessful log in using "admin user"
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: Ensure the login request is received by burpsuite and send it to repeater.
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 52 - Username and password recorded" loading="lazy" src="p031_Figure_52_-_Username_and_password_recorded.png"/>
+     <figcaption>
+      Figure 52 - Username and password recorded
+     </figcaption>
+    </figure>
+    <h3>
+     Step 3: Commit a SQL injection in the email section “adminuser” or 1=1 –"
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 53- Sql Injection in the Repeater" loading="lazy" src="p032_Figure_53-_Sql_Injection_in_the_Repeater.png"/>
+     <figcaption>
+      Figure 53- Sql Injection in the Repeater
+     </figcaption>
+    </figure>
+    <h3>
+     Output of the sql Injection with a generated authentication token, basket id and email  showing that we have been granted access and Proof of Completion.
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 54 - Successful Authentication and Token Recieved" loading="lazy" src="p032_Figure_54_-_Successful_Authentication_and_Token_Recieved.png"/>
+     <figcaption>
+      Figure 54 - Successful Authentication and Token Recieved
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 5 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – At Risk
+       </th>
+       <th>
+        Availability - Indirect
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Gaining admin access exposes registered user emails, hashed passwords and order history.
+       </td>
+       <td>
+        As an authenticated admin, the attacker can modify user and product data which would erode the trust of available data
+       </td>
+       <td>
+        The attack does not directly disrupt availability but an admin account could be used to delete all products
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 6:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 55 - Challenge 6: Provoke an Error that is not Handled Gracefully" loading="lazy" src="p033_Figure_55_-_Challenge_6_Provoke_an_Error_that_is_not_Handled_Gracefully.png"/>
+     <figcaption>
+      Figure 55 - Challenge 6: Provoke an Error that is not Handled Gracefully
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1:
+    </h3>
+    <p>
+     As a logged in user that you have created, Try and go to the profile page by clicking the profile icon
+    </p>
+    <figure class="figure">
+     <img alt="Figure 56 - Profile Icon" loading="lazy" src="p033_Figure_56_-_Profile_Icon.png"/>
+     <figcaption>
+      Figure 56 - Profile Icon
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: This page should come up showing that the request was not handled gracefully thus completing the challenge
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 57 - Unhandled error and it shows the Programming language being used" loading="lazy" src="p033_Figure_57_-_Unhandled_error_and_it_shows_the_Programming_language_being_used.png"/>
+     <figcaption>
+      Figure 57 - Unhandled error and it shows the Programming language being used
+     </figcaption>
+    </figure>
+    <h2>
+     Proof of completion
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 58 - Challenge Completed" loading="lazy" src="p034_Figure_58_-_Challenge_Completed.png"/>
+     <figcaption>
+      Figure 58 - Challenge Completed
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 6 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – At Risk
+       </th>
+       <th>
+        Avaliability - Indirect
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Internal file path, source file name and language used have been exposed
+       </td>
+       <td>
+        Knowing the framework version could let an attacker look up known vulnerabilities and use payloads
+       </td>
+       <td>
+        Unhandled execetptions that cause crashes could cause the software to go down.
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 7:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 59 - Challenge 7: Login Bender" loading="lazy" src="p034_Figure_59_-_Challenge_7_Login_Bender.png"/>
+     <figcaption>
+      Figure 59 - Challenge 7: Login Bender
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1: Go to the product page and look through the reviews of all products to find a review left by benders email address.
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 60 - A review left by bender on the Banana Juice product" loading="lazy" src="p034_Figure_60_-_A_review_left_by_bender_on_the_Banana_Juice_product.png"/>
+     <figcaption>
+      Figure 60 - A review left by bender on the Banana Juice product
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: Commit SQL Injection in the email section of the login page by typing “- -". You can put any value in the password section.
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 61 - Sql Injection" loading="lazy" src="p035_Figure_61_-_Sql_Injection.jpeg"/>
+     <figcaption>
+      Figure 61 - Sql Injection
+     </figcaption>
+    </figure>
+    <h2>
+     Proof of completion
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 62 - Challenge Completed" loading="lazy" src="p035_Figure_62_-_Challenge_Completed.jpeg"/>
+     <figcaption>
+      Figure 62 - Challenge Completed
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 63 - Logged in as Bender" loading="lazy" src="p036_Figure_63_-_Logged_in_as_Bender.jpeg"/>
+     <figcaption>
+      Figure 63 - Logged in as Bender
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 7 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – Breached
+       </th>
+       <th>
+        Availability - Risk
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Complete takeover of account allowing access to users personal data.
+       </td>
+       <td>
+        Attacker could make unauthorised purchases, reviews or change details
+       </td>
+       <td>
+        Attacker can change users login details and lock them out
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 8:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 64 - Challenge 8: (Change benders password to slurmCl4ssic)" loading="lazy" src="p036_Figure_64_-_Challenge_8_Change_benders_password_to_slurmCl4ssic.png"/>
+     <figcaption>
+      Figure 64 - Challenge 8: (Change benders password to slurmCl4ssic)
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1 Login as bender using a sql injection
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 65 - Logged In as Bender" loading="lazy" src="p036_Figure_65_-_Logged_In_as_Bender.jpeg"/>
+     <figcaption>
+      Figure 65 - Logged In as Bender
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: Attempt to change password so you can get the http history in burp suite
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 66 - Random Password Entered" loading="lazy" src="p037_Figure_66_-_Random_Password_Entered.png"/>
+     <figcaption>
+      Figure 66 - Random Password Entered
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 67 - Login Attempt Caught" loading="lazy" src="p038_Figure_67_-_Login_Attempt_Caught.png"/>
+     <figcaption>
+      Figure 67 - Login Attempt Caught
+     </figcaption>
+    </figure>
+    <h3>
+     Step 3: copy the request into the repeater so it can be used again.
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 68 - Login attempt is in the Repeater" loading="lazy" src="p038_Figure_68_-_Login_attempt_is_in_the_Repeater.png"/>
+     <figcaption>
+      Figure 68 - Login attempt is in the Repeater
+     </figcaption>
+    </figure>
+    <h3>
+     Step 4: remove the field that says “current” which contains the password you entered and send the request
+    </h3>
+    <figure class="figure">
+     <img alt='Figure 69 - "Current" Field has been removed' loading="lazy" src="p039_Figure_69_-_Current_Field_has_been_removed.png"/>
+     <figcaption>
+      Figure 69 - "Current" Field has been removed
+     </figcaption>
+    </figure>
+    <h2>
+     Proof of completion
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 70 - Challenge Completed" loading="lazy" src="p039_Figure_70_-_Challenge_Completed.jpeg"/>
+     <figcaption>
+      Figure 70 - Challenge Completed
+     </figcaption>
+    </figure>
+    <p>
+     Proof password Changed
+    </p>
+    <figure class="figure">
+     <img alt="Figure 71 - Save Password Box shows Updated Password" loading="lazy" src="p040_Figure_71_-_Save_Password_Box_shows_Updated_Password.jpeg"/>
+     <figcaption>
+      Figure 71 - Save Password Box shows Updated Password
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 8 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – Breached
+       </th>
+       <th>
+        Availability - Indirect
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Attacker has Permanent access to account until user notices and changes password
+       </td>
+       <td>
+        Attacker can make purchases and impersonate the user.
+       </td>
+       <td>
+        Attacker owner is completely locked out and they must contact support to recover their password
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 9:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 72 – Challenge 9: DOM XSS" loading="lazy" src="p040_Figure_72_-_Challenge_9_DOM_XSS.png"/>
+     <figcaption>
+      Figure 72 – Challenge 9: DOM XSS
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1: Copy the “iframe” code
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 73 - Iframe Code Copied" loading="lazy" src="p040_Figure_73_-_Iframe_Code_Copied.png"/>
+     <figcaption>
+      Figure 73 - Iframe Code Copied
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: Paste the code into the search bar and then press enter
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 74 - Iframe Code Pasted in Search Bar" loading="lazy" src="p040_Figure_74_-_Iframe_Code_Pasted_in_Search_Bar.png"/>
+     <figcaption>
+      Figure 74 - Iframe Code Pasted in Search Bar
+     </figcaption>
+    </figure>
+    <h3>
+     Step 3: After you press enter a box saying xss should come up. This tells you the attack was successful
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 75 - XSS Attack Output" loading="lazy" src="p041_Figure_75_-_XSS_Attack_Output.png"/>
+     <figcaption>
+      Figure 75 - XSS Attack Output
+     </figcaption>
+    </figure>
+    <p>
+     Notice how the search result is a large empty box
+    </p>
+    <figure class="figure">
+     <img alt="Figure 118 - Empty search result box shown after submitting the payload" loading="lazy" src="p041_Figure_118_-_Empty_search_result_box_shown_after_submitting_the_payload.jpeg"/>
+     <figcaption>
+      Figure 118 - Empty search result box shown after submitting the payload
+     </figcaption>
+    </figure>
+    <h2>
+     Proof of completion
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 76 - Challenge Completed" loading="lazy" src="p042_Figure_76_-_Challenge_Completed.png"/>
+     <figcaption>
+      Figure 76 - Challenge Completed
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 9 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – Breached
+       </th>
+       <th>
+        Availability - Risk
+       </th>
+      </tr>
+      <tr>
+       <td>
+        A real XSS Payload could steal victims session cookie and hijack the account.
+       </td>
+       <td>
+        Attacker gains the ability to modify content and submit forms.
+       </td>
+       <td>
+        Could execute denial of service payloads or lure users away from the site
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Challenge 10:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 77 - Challenge 10: Steal User Credentials" loading="lazy" src="p042_Figure_77_-_Challenge_10_Steal_User_Credentials.png"/>
+     <figcaption>
+      Figure 77 - Challenge 10: Steal User Credentials
+     </figcaption>
+    </figure>
+    <h3>
+     Step 1: In the search bar, do a union select of the user’s table. The page should give information saying that we don’t have the right number of columns
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 78- Union Select SQL Injection" loading="lazy" src="p042_Figure_78-_Union_Select_SQL_Injection.png"/>
+     <figcaption>
+      Figure 78- Union Select SQL Injection
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 79- Page Showing the number of columns is incoreect" loading="lazy" src="p043_Figure_79-_Page_Showing_the_number_of_columns_is_incoreect.jpeg"/>
+     <figcaption>
+      Figure 79- Page Showing the number of columns is incoreect
+     </figcaption>
+    </figure>
+    <h3>
+     Step 2: Find the correct number of columns by increasing the number of columns you are searching for
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 80- Selecting 1 column" loading="lazy" src="p043_Figure_80-_Selecting_1_column.png"/>
+     <figcaption>
+      Figure 80- Selecting 1 column
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 81- Error Message Changed" loading="lazy" src="p043_Figure_81-_Error_Message_Changed.jpeg"/>
+     <figcaption>
+      Figure 81- Error Message Changed
+     </figcaption>
+    </figure>
+    <h3>
+     Step 3: Once you find the right number of columns, a page page containing all the details of a user should appear.
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 82- Selecting 9 Columns is the correct amount of Columns" loading="lazy" src="p043_Figure_82-_Selecting_9_Columns_is_the_correct_amount_of_Columns.png"/>
+     <figcaption>
+      Figure 82- Selecting 9 Columns is the correct amount of Columns
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 83 - Page showing user information" loading="lazy" src="p044_Figure_83_-_Page_showing_user_information.png"/>
+     <figcaption>
+      Figure 83 - Page showing user information
+     </figcaption>
+    </figure>
+    <h3>
+     Step 4: type a SQL query in the URL that targets id,password and email. This will return a list of user id’s, their emails and passwords
+    </h3>
+    <figure class="figure">
+     <img alt="Figure 84- SQL Injection Targeting Email, ID and Password" loading="lazy" src="p044_Figure_84-_SQL_Injection_Targeting_Email_ID_and_Password.png"/>
+     <figcaption>
+      Figure 84- SQL Injection Targeting Email, ID and Password
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 85 - Output of the SQL injection" loading="lazy" src="p045_Figure_85_-_Output_of_the_SQL_injection.png"/>
+     <figcaption>
+      Figure 85 - Output of the SQL injection
+     </figcaption>
+    </figure>
+    <h2>
+     Proof of completion
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 86 - Challenge Completed" loading="lazy" src="p045_Figure_86_-_Challenge_Completed.png"/>
+     <figcaption>
+      Figure 86 - Challenge Completed
+     </figcaption>
+    </figure>
+    <h2>
+     Challenge 10 CIA Triad Impact
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Confidentiality - Breached
+       </th>
+       <th>
+        Integrity – At Risk
+       </th>
+       <th>
+        Availability – High Risk
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Every users email and password is extracted
+       </td>
+       <td>
+        High risk of taking over accounts and purchases could be modified.
+       </td>
+       <td>
+        Forces juice shop to reset all passwords.
+       </td>
+      </tr>
+     </table>
+    </div>
+    <p>
+     List of all completed challenges
+    </p>
+    <figure class="figure">
+     <img alt="Figure 87 – Completed Challenges" loading="lazy" src="p046_Figure_87_-_Completed_Challenges.png"/>
+     <figcaption>
+      Figure 87 – Completed Challenges
+     </figcaption>
+    </figure>
+    <h2>
+     Reflection
+    </h2>
+    <p>
+     Although Juice shop is not an effective tool in protecting user data, it is an effective tool for providing practical exercises on exploiting multiple types of vulnerabilities and teaches how to identify them.  The Most difficult part of the lab was stealing user credentials (Challenge 10) because it required iterative column counts before the final query could be created. The SQL error messages were helpful as the information disclosure provided clues on what the problem was and how to solve it. This demonstrated that information disclosure and SQL Injections are not disconnected but connected problems that increase the severity of each other. BurpSuites repeater was used in some of the challenges and taught how to modify a sent request and observer the servers response without the browser re-validating input forms which mirrors how professional penetration testers operate.
+    </p>
+    <h2>
+     Strengths and Weaknesses
+    </h2>
+    <p>
+     The gamified scoreboard shows instant confirmation when a challenge is completed, and each challenge is categorized based on not just the difficulty rating but the type of vulnerability that is being exploited which allows skills to be built progressively. Juice Shop is very exaggerated in its security design due real world applications not having simultaneous vulnerabilities without being discovered previously.
+    </p>
+   </section>
+   <section>
+    <h1>
+     Week 8: Vulnerability Assessment (NMAP)
+    </h1>
+    <p>
+     Nmap is a industry-standard tool used by penetration testers to understand what services are running and on which ports before exploiting any vulnerabilities [6]. Nmap combines host discovery, port scanning, service version detection, operating system fingerprinting, and scriptable vulnerability checking within a single tool
+    </p>
+    <h2>
+     Section 1: Basic Host Discovery
+    </h2>
+    <p>
+     Nmap Ping scan
+    </p>
+    <p>
+     Establishes if a system is reachable which is important because actual targets need to be found before anything else is done. A downside is that it might avoid systems with enabled firewalls block ping probes. Based on this information, a mitigation strategy could be enabling the firewall on the device and configure it to block host discovery [13] [14].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 88- Output of the ping Scan" loading="lazy" src="p047_Figure_88-_Output_of_the_ping_Scan.jpeg"/>
+     <figcaption>
+      Figure 88- Output of the ping Scan
+     </figcaption>
+    </figure>
+    <p>
+     Single Host Scan
+    </p>
+    <p>
+     Establishes if the system is reachable and displays open ports which reveal potential areas to attack. A downside is that service version and software version are not identified. To protect against this it would be best to close unused ports [14].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 89 -Single Host Scan Output" loading="lazy" src="p047_Figure_89_-Single_Host_Scan_Output.jpeg"/>
+     <figcaption>
+      Figure 89 -Single Host Scan Output
+     </figcaption>
+    </figure>
+    <p>
+     Multi host scan
+    </p>
+    <p>
+     Reveals if multiple systems are reachable at once and also displays open ports for each system that is identified. A limitation is that scanning multiple hosts can still miss unresponsive systems [14].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 90 - Output of multi Host scan" loading="lazy" src="p048_Figure_90_-_Output_of_multi_Host_scan.png"/>
+     <figcaption>
+      Figure 90 - Output of multi Host scan
+     </figcaption>
+    </figure>
+    <p>
+     Subnet Scan
+    </p>
+    <p>
+     Establishes if the system is reachable and also displays open ports. This is useful for discovering devices in a network. A downside is that it does not show if discovered services are vulnerable [13].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 91 - Output of Subnet Scan" loading="lazy" src="p048_Figure_91_-_Output_of_Subnet_Scan.jpeg"/>
+     <figcaption>
+      Figure 91 - Output of Subnet Scan
+     </figcaption>
+    </figure>
+    <p>
+     The output for most scans shows if the host is reachable, the amount of closed ports, name of open ports and the mac address which is important because it means that a potential target has been found and could be exploited but it does not say anything about the operating system or the software version they are using so another type of scan has  to get this information. Below is a table containing the differences between each scan.
+    </p>
+   </section>
+   <section>
+    <h1>
+     Scan Comparison and Analysis
+    </h1>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Ping Scan
+       </th>
+       <th>
+        Single Host
+       </th>
+       <th>
+        Multi Host
+       </th>
+       <th>
+        Subnet
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Used to check if host is up
+       </td>
+       <td>
+        Used for scanning 1 host at a time
+       </td>
+       <td>
+        Good for scanning multiple Hosts at once
+       </td>
+       <td>
+        Must add the subnet at the end of the IP address
+       </td>
+      </tr>
+      <tr>
+       <td>
+        No port scan
+       </td>
+       <td>
+        Scans ports
+       </td>
+       <td>
+        Scans ports
+       </td>
+       <td>
+        Scans ports
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Section 2: Port Scanning
+    </h2>
+    <p>
+     TCP Connect scan
+    </p>
+    <p>
+     Completes full handshakes to check open ports which is useful for identifying reachable services but is more likely to appear in logs making it less stealthy so its important to check logs for this scan [15].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 92 - Output of TCP Connect Scan" loading="lazy" src="p049_Figure_92_-_Output_of_TCP_Connect_Scan.jpeg"/>
+     <figcaption>
+      Figure 92 - Output of TCP Connect Scan
+     </figcaption>
+    </figure>
+    <p>
+     SYN scan
+    </p>
+    <p>
+     Tests ports without fully completing the handshake which makes it stealthier than TCP but firewalls or filtering can affect the results. To mitigate this, it would be best to close unused ports [15].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 93 - SYN Scan" loading="lazy" src="p049_Figure_93_-_SYN_Scan.jpeg"/>
+     <figcaption>
+      Figure 93 - SYN Scan
+     </figcaption>
+    </figure>
+    <p>
+     Port Range SCAN
+    </p>
+    <p>
+     This is used to find open ports more quickly by scanning multiple ports at once but a limitation is that short ranges can miss services outside of the range. To mitigate the effects of this scan, users should check if any service in the range is necessarily exposed [16].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 94 - Output of Port Range Scan" loading="lazy" src="p049_Figure_94_-_Output_of_Port_Range_Scan.jpeg"/>
+     <figcaption>
+      Figure 94 - Output of Port Range Scan
+     </figcaption>
+    </figure>
+    <p>
+     Scan Specific ports
+    </p>
+    <p>
+     Checks specific ports to see if selected services are reachable which is useful for checking if services like SSH are being used [16].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 95 - Scan Specific Ports" loading="lazy" src="p050_Figure_95_-_Scan_Specific_Ports.png"/>
+     <figcaption>
+      Figure 95 - Scan Specific Ports
+     </figcaption>
+    </figure>
+    <h2>
+     Comparison Table
+    </h2>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        TCP Connect Scan
+       </th>
+       <th>
+        SYN Scan
+       </th>
+       <th>
+        UDP Scan
+       </th>
+       <th>
+        Port range scan
+       </th>
+       <th>
+        Scan Specific Ports
+       </th>
+      </tr>
+      <tr>
+       <td>
+        sT
+       </td>
+       <td>
+        sS
+       </td>
+       <td>
+        sU
+       </td>
+       <td>
+        P
+       </td>
+       <td>
+        P-
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Faster than SYN but more detectable
+       </td>
+       <td>
+        Slower Than TCP but more stealthy
+       </td>
+       <td>
+        Used for discovering  UDP Ports
+       </td>
+       <td>
+        Used to define a range of ports to scan
+       </td>
+       <td>
+        Used to scan specific ports
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Section 3: Software Version detection
+    </h2>
+    <p>
+     This shows the version of software being used next to the “SERVICE Column. This is one of the most useful scans for attackers because it helps attackers determine the software version and they can then research any known vulnerabilities found in the software version and exploit. It also gives clues about the type of operating system being used but it does not show the version being used so attackers will need to use another scan to get that information.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 96-Software Version Detection Output" loading="lazy" src="p050_Figure_96-Software_Version_Detection_Output.png"/>
+     <figcaption>
+      Figure 96-Software Version Detection Output
+     </figcaption>
+    </figure>
+    <h2>
+     Section 4: Operating system detection
+    </h2>
+    <p>
+     This shows the version of the operating system being used near the bottom of the screen. It helps attackers find out the operating system being used by the target and the version of the operating system and they can research vulnerabilities and choose find the appropriate ones to exploit. This scan does not show the version of the software being used but that information can be found with “-Sv” which combined with Operating System detection makes finding vulnerabilities and exploiting devices easier.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 97- OS Detection Output" loading="lazy" src="p051_Figure_97-_OS_Detection_Output.png"/>
+     <figcaption>
+      Figure 97- OS Detection Output
+     </figcaption>
+    </figure>
+    <h2>
+     Section 5: Aggressive Scan
+    </h2>
+    <p>
+     Used for detecting Operating system, the version used, script scanning and traceroute. While it provides better information than the regular scans, it sends out more probes and is more likely to be detected during a security audit [14].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 98 - Aggressive Scan" loading="lazy" src="p051_Figure_98_-_Aggressive_Scan.png"/>
+     <figcaption>
+      Figure 98 - Aggressive Scan
+     </figcaption>
+    </figure>
+    <h2>
+     Section 6: NMAP Scripting Engine (NSE
+    </h2>
+    <p>
+     1: Vulnerability Script
+    </p>
+    <p>
+     Used to check for weaknesses in a systems configuration by highlighting possible attack paths but the results still need validation due to the possibility of scripts producing incomplete findings or false positives [19]:
+    </p>
+    <figure class="figure">
+     <img alt="Figure 99 - Output of vulnerability Script" loading="lazy" src="p052_Figure_99_-_Output_of_vulnerability_Script.jpeg"/>
+     <figcaption>
+      Figure 99 - Output of vulnerability Script
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 100 - Output of vulnerability Script" loading="lazy" src="p052_Figure_100_-_Output_of_vulnerability_Script.jpeg"/>
+     <figcaption>
+      Figure 100 - Output of vulnerability Script
+     </figcaption>
+    </figure>
+    <p>
+     2: Specific Script by Name
+    </p>
+    <p>
+     Runs a http-enum script for listing common web directories, open ports, paths or apps on a http service which is useful if the scanner wants to investigate one service in more detail. To mitigate this, remove unused paths and restrict sensitive resources [19]:
+    </p>
+    <figure class="figure">
+     <img alt="Figure 101 - Output of specific Script" loading="lazy" src="p053_Figure_101_-_Output_of_specific_Script.jpeg"/>
+     <figcaption>
+      Figure 101 - Output of specific Script
+     </figcaption>
+    </figure>
+    <p>
+     3: Combine Version and OS Detection
+    </p>
+    <p>
+     Combines service detection, OS detection and the default NSE Script to give a more detailed scan that gathers service info and runs common safe scripts for more detail. This makes vulnerabilities easier to find due to software version, OS version and script findings are viewed together. People trying to protect against this should patch exposed services
+    </p>
+    <figure class="figure">
+     <img alt="Figure 102 - Output" loading="lazy" src="p053_Figure_102_-_Output.jpeg"/>
+     <figcaption>
+      Figure 102 - Output
+     </figcaption>
+    </figure>
+    <h2>
+     Section 7: Output Options
+    </h2>
+    <p>
+     1: Save Scan results to text file
+    </p>
+    <p>
+     Saves the output of scan results to output.txt so it can stored for later use
+    </p>
+    <figure class="figure">
+     <img alt="Figure 103 - Output.txt Output" loading="lazy" src="p054_Figure_103_-_Output.txt_Output.png"/>
+     <figcaption>
+      Figure 103 - Output.txt Output
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 104 - Output.txt File" loading="lazy" src="p054_Figure_104_-_Output.txt_File.png"/>
+     <figcaption>
+      Figure 104 - Output.txt File
+     </figcaption>
+    </figure>
+    <p>
+     2: Saves output results as a xml file
+    </p>
+    <figure class="figure">
+     <img alt="Figure 105 - Output Results XML FILE" loading="lazy" src="p054_Figure_105_-_Output_Results_XML_FILE.jpeg"/>
+     <figcaption>
+      Figure 105 - Output Results XML FILE
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 106 - Output.xml File" loading="lazy" src="p055_Figure_106_-_Output.xml_File.png"/>
+     <figcaption>
+      Figure 106 - Output.xml File
+     </figcaption>
+    </figure>
+    <p>
+     3: Saves Output in a Greppable Format
+    </p>
+    <p>
+     Used for quick filtering or scripting
+    </p>
+    <figure class="figure">
+     <img alt="Figure 107 - Greppable Format Output" loading="lazy" src="p055_Figure_107_-_Greppable_Format_Output.png"/>
+     <figcaption>
+      Figure 107 - Greppable Format Output
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 108 - Output.grep File" loading="lazy" src="p055_Figure_108_-_Output.grep_File.png"/>
+     <figcaption>
+      Figure 108 - Output.grep File
+     </figcaption>
+    </figure>
+    <h2>
+     Section 8: Advanced Scanning Techniques
+    </h2>
+    <p>
+     1: Avoid Firewall Detection (Decoys)
+    </p>
+    <p>
+     Decoy scanning adds random spoofed addresses to hide the real source of a scan. The downside to this is that it is not guaranteed that detection systems will be bypassed [20].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 109 - Decoys Output" loading="lazy" src="p056_Figure_109_-_Decoys_Output.png"/>
+     <figcaption>
+      Figure 109 - Decoys Output
+     </figcaption>
+    </figure>
+    <p>
+     2: Fragmentation
+    </p>
+    <p>
+     Used to avoid packet filtering rules by breaking packets into smaller pieces [20]:
+    </p>
+    <figure class="figure">
+     <img alt="Figure 110 - Avoid Packet filter" loading="lazy" src="p056_Figure_110_-_Avoid_Packet_filter.png"/>
+     <figcaption>
+      Figure 110 - Avoid Packet filter
+     </figcaption>
+    </figure>
+    <p>
+     3: Spoof Mac Address
+    </p>
+    <p>
+     Used to disguise a scanner’s network identity at the local network layer [20]:
+    </p>
+    <figure class="figure">
+     <img alt="Figure 111- Spoof Mac Address output" loading="lazy" src="p056_Figure_111-_Spoof_Mac_Address_output.png"/>
+     <figcaption>
+      Figure 111- Spoof Mac Address output
+     </figcaption>
+    </figure>
+    <p>
+     4: Randomize Host Order
+    </p>
+    <p>
+     Changes the sequence in which targets are scanned and make scan patterns less predictable. This is useful because sequential scans are easier to find in logs but randomizing the host order spreads the activity across hosts. Based on this information to detect this scan, users should look for scan behaviour over time [21]:
+    </p>
+    <figure class="figure">
+     <img alt="Figure 112 - Randomize Host order Output" loading="lazy" src="p057_Figure_112_-_Randomize_Host_order_Output.png"/>
+     <figcaption>
+      Figure 112 - Randomize Host order Output
+     </figcaption>
+    </figure>
+    <p>
+     5: Idle Scan (Stealthy and Spoofed)
+    </p>
+    <p>
+     Performs a stealthy spoofed scan using a third party zombie host but a limitation of this scan is that it depends on finding a suitable zombie host [22]
+    </p>
+    <figure class="figure">
+     <img alt="Figure 119 - Nmap idle scan error output" loading="lazy" src="p057_Figure_119_-_Nmap_idle_scan_error_output.png"/>
+     <figcaption>
+      Figure 119 - Nmap idle scan error output
+     </figcaption>
+    </figure>
+    <p>
+     6: Timing Options
+    </p>
+    <p>
+     Controls how fast Nmap sends probes for scanning. Faster timing saves time on reliable networks but it can increase the risk of incorrect results, trigger defenses or produce less reliable results on unreliable networks [14].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 113 - Timing Options Output" loading="lazy" src="p057_Figure_113_-_Timing_Options_Output.png"/>
+     <figcaption>
+      Figure 113 - Timing Options Output
+     </figcaption>
+    </figure>
+    <h2>
+     Section 9: Other Useful Commands
+    </h2>
+    <p>
+     1: Trace Route
+    </p>
+    <p>
+     Performs a Trace Route to the target and is used for seeing the path a packet travels through. This can help attackers deduce the possibility of firewalls or routers being used [14].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 114 – Trace Route Output" loading="lazy" src="p058_Figure_114_-_Trace_Route_Output.jpeg"/>
+     <figcaption>
+      Figure 114 – Trace Route Output
+     </figcaption>
+    </figure>
+    <p>
+     2: IPV6 Scanning
+    </p>
+    <p>
+     Used to check for services reachable over IPv6. Good to use because scanning using Ipv4 address could miss exposed services [14].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 115 - Output of ipv6 Scanning" loading="lazy" src="p058_Figure_115_-_Output_of_ipv6_Scanning.png"/>
+     <figcaption>
+      Figure 115 - Output of ipv6 Scanning
+     </figcaption>
+    </figure>
+    <p>
+     3: Scan using TCP ACK Packets
+    </p>
+    <p>
+     Used for mapping firewall rules and determining if ports are filtered instead of finding open ports directly. A limitation is that open ports cannot be identified [15].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 116 - TCP ACK Packets" loading="lazy" src="p058_Figure_116_-_TCP_ACK_Packets.jpeg"/>
+     <figcaption>
+      Figure 116 - TCP ACK Packets
+     </figcaption>
+    </figure>
+    <p>
+     4: Scan Only hosts with Open ports
+    </p>
+    <p>
+     Used to find Hosts with open ports that Host Services. This saves time for attackers as systems who host services are more likely to have vulnerabilities [21].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 117 - Output of hosts with open ports" loading="lazy" src="p059_Figure_117_-_Output_of_hosts_with_open_ports.png"/>
+     <figcaption>
+      Figure 117 - Output of hosts with open ports
+     </figcaption>
+    </figure>
+   </section>
+   <section>
+    <h1>
+     Vulnerability Assessment Lab: (SSH)
+    </h1>
+    <p>
+     Secure Shell Host is a protocol that secures communications with another system over an unsecured network by encrypting all data that is sent to prevent any sensitive data from being intercepted. Understanding how SSH authentication, key management, tunnelling, and file transfer work is important in understanding the vulnerabilities that Nmap identifies.
+    </p>
+    <h2>
+     Section 1: SSH Connection Basics
+    </h2>
+    <p>
+     1: Connect to a remote server using ssh
+    </p>
+    <p>
+     This is used to remotely control a remote server from your local machine using the remote servers ip address and logs in as a user that is already registered on the host machine. The output shows a successful login and information about the remote server. In the terminal the name of the user has changed from kali@kali to student@wordpress.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 118 - ssh output" loading="lazy" src="p059_Figure_118_-_ssh_output.png"/>
+     <figcaption>
+      Figure 118 - ssh output
+     </figcaption>
+    </figure>
+    <p>
+     Specify A port:
+    </p>
+    <figure class="figure">
+     <img alt="Figure 119 - Output for port 22" loading="lazy" src="p060_Figure_119_-_Output_for_port_22.png"/>
+     <figcaption>
+      Figure 119 - Output for port 22
+     </figcaption>
+    </figure>
+    <h2>
+     Section 2: SSH Authentication and Key Management
+    </h2>
+    <p>
+     Generate a 4096-bit RSA SSH key pair
+    </p>
+    <p>
+     Enables logging in without a password which supports stronger access control but if the private key is stolen then the security benefits are reduced. To mitigate this weakness, protect the private key with a passphrase and keep it safe. The output shows SHA256 encrypted key has been created and saved [24].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 120 - Output of key Generation" loading="lazy" src="p060_Figure_120_-_Output_of_key_Generation.jpeg"/>
+     <figcaption>
+      Figure 120 - Output of key Generation
+     </figcaption>
+    </figure>
+    <p>
+     Copy public key to remote server
+    </p>
+    <p>
+     Used to login without password on the remote machine, reducing the risk of brute force as long as password authentication is disabled [25]. Output shows the key was successfully copied.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 121 - Copy Key to remote server" loading="lazy" src="p061_Figure_121_-_Copy_Key_to_remote_server.png"/>
+     <figcaption>
+      Figure 121 - Copy Key to remote server
+     </figcaption>
+    </figure>
+    <p>
+     Successful Passwordless Login
+    </p>
+    <figure class="figure">
+     <img alt="Figure 122 - No Password Login" loading="lazy" src="p061_Figure_122_-_No_Password_Login.jpeg"/>
+     <figcaption>
+      Figure 122 - No Password Login
+     </figcaption>
+    </figure>
+    <h2>
+     Section 3: Managing SSH SESSIONS
+    </h2>
+    <p>
+     Log out using the “exit” command
+    </p>
+    <p>
+     Output shows the username has reverted to kali@kali
+    </p>
+    <figure class="figure">
+     <img alt="Figure 123 - Log out output" loading="lazy" src="p061_Figure_123_-_Log_out_output.png"/>
+     <figcaption>
+      Figure 123 - Log out output
+     </figcaption>
+    </figure>
+    <p>
+     Remote commands
+    </p>
+    <p>
+     Used to log into the remote server using ssh and execute “ls -la” to list files in the student users directory.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 124 - Ls-la SSH Output" loading="lazy" src="p062_Figure_124_-_Ls-la_SSH_Output.png"/>
+     <figcaption>
+      Figure 124 - Ls-la SSH Output
+     </figcaption>
+    </figure>
+    <h2>
+     Section 4: File Transfer With SCP
+    </h2>
+    <p>
+     Copy a File from Local to Remote
+    </p>
+    <p>
+     Uses Secure Copy Protocol to copy files.txt from the local machine to the specified remote directory using ssh to ensure transferred data is encrypted. This is useful for collecting sensitive files safely but it does not protect against malware. The output shows the file has been located and transferred to the remote directory [26].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 125 - SCP Output" loading="lazy" src="p062_Figure_125_-_SCP_Output.jpeg"/>
+     <figcaption>
+      Figure 125 - SCP Output
+     </figcaption>
+    </figure>
+    <p>
+     Copied file.txt to the remote directory
+    </p>
+    <figure class="figure">
+     <img alt="Figure 120 - SCP upload of file.txt to the remote Documents directory" loading="lazy" src="p062_Figure_120_-_SCP_upload_of_file.txt_to_the_remote_Documents_directory.png"/>
+     <figcaption>
+      Figure 120 - SCP upload of file.txt to the remote Documents directory
+     </figcaption>
+    </figure>
+    <p>
+     Copy from remote to local
+    </p>
+    <figure class="figure">
+     <img alt="Figure 121 - SCP command to copy a file from the remote server to the local machine" loading="lazy" src="p063_Figure_121_-_SCP_command_to_copy_a_file_from_the_remote_server_to_the_local_mach.png"/>
+     <figcaption>
+      Figure 121 - SCP command to copy a file from the remote server to the local machine
+     </figcaption>
+    </figure>
+    <p>
+     Output showing the file has been copied to kali
+    </p>
+    <figure class="figure">
+     <img alt="Figure 122 - Local Documents folder showing the file copied from the remote server" loading="lazy" src="p063_Figure_122_-_Local_Documents_folder_showing_the_file_copied_from_the_remote_serv.png"/>
+     <figcaption>
+      Figure 122 - Local Documents folder showing the file copied from the remote server
+     </figcaption>
+    </figure>
+    <h2>
+     Section 5: Secure File Transfers with SFTP
+    </h2>
+    <p>
+     Connect to a Remote Server using SFTP
+    </p>
+    <p>
+     SSH file transfer protocol is an alternative to SCP where you can do CRUD operations directly from the terminal and is reliable alternative to SCP if the connection is unstable. The output shows we have successfully connected to the remote server using SFTP
+    </p>
+    <figure class="figure">
+     <img alt="Figure 123 - SFTP connection established to the remote Ubuntu WordPress server" loading="lazy" src="p063_Figure_123_-_SFTP_connection_established_to_the_remote_Ubuntu_WordPress_server.png"/>
+     <figcaption>
+      Figure 123 - SFTP connection established to the remote Ubuntu WordPress server
+     </figcaption>
+    </figure>
+    <p>
+     SFTP LS
+    </p>
+    <p>
+     Lists the file on the remote machine
+    </p>
+    <figure class="figure">
+     <img alt="Figure 124 - SFTP ls output listing the documents directory on the remote server" loading="lazy" src="p064_Figure_124_-_SFTP_ls_output_listing_the_documents_directory_on_the_remote_server.png"/>
+     <figcaption>
+      Figure 124 - SFTP ls output listing the documents directory on the remote server
+     </figcaption>
+    </figure>
+    <p>
+     Download a File from the Remote Ubuntu Wordpress server with SFTP
+    </p>
+    <p>
+     Using the get command along with the working remote directory path of the file we want to download
+    </p>
+    <figure class="figure">
+     <img alt="Figure 125 - SFTP get command downloading file.txt from the remote server" loading="lazy" src="p064_Figure_125_-_SFTP_get_command_downloading_file.txt_from_the_remote_server.png"/>
+     <figcaption>
+      Figure 125 - SFTP get command downloading file.txt from the remote server
+     </figcaption>
+    </figure>
+    <p>
+     Output of the file we copied from the remote server to kali
+    </p>
+    <figure class="figure">
+     <img alt="Figure 126 - Downloaded file shown in the local Documents folder" loading="lazy" src="p064_Figure_126_-_Downloaded_file_shown_in_the_local_Documents_folder.png"/>
+     <figcaption>
+      Figure 126 - Downloaded file shown in the local Documents folder
+     </figcaption>
+    </figure>
+    <h3>
+     Comparison between STFP and SCP
+    </h3>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        SFTP
+       </th>
+       <th>
+        SCP
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Best used if connection is unstable
+       </td>
+       <td>
+        Best used with a stable connection
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Do commands inside the terminal
+       </td>
+       <td>
+        Do commands outside the terminal.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Used to manage Files remotely
+       </td>
+       <td>
+        Used to copy files from one host to another.
+       </td>
+      </tr>
+     </table>
+    </div>
+    <h2>
+     Section 6: Tunneling with SSH
+    </h2>
+    <p>
+     Local Port Forwarding on Port 8080 to Remote Host Port 80 using the -L flag
+    </p>
+    <p>
+     Used for securing port forwarding methods by tunnelling TCP/IP packets through a SSH link to make the data obscure and protecting the link from attacks.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 127 - Local port forwarding from local port 8080 to remote host port 80" loading="lazy" src="p065_Figure_127_-_Local_port_forwarding_from_local_port_8080_to_remote_host_port_80.jpeg"/>
+     <figcaption>
+      Figure 127 - Local port forwarding from local port 8080 to remote host port 80
+     </figcaption>
+    </figure>
+    <p>
+     Remote Port Forwading using the -R flag
+    </p>
+    <p>
+     Requests on remote server port 9090 should be forwarded to local host at port 80. a request is made to the server on port 9090 a reply from local host would be recieved.
+    </p>
+    <figure class="figure">
+     <img alt="Figure 128 - Remote port forwarding from remote port 9090 to local host port 80" loading="lazy" src="p065_Figure_127_-_Local_port_forwarding_from_local_port_8080_to_remote_host_port_80.jpeg"/>
+     <figcaption>
+      Figure 128 - Remote port forwarding from remote port 9090 to local host port 80
+     </figcaption>
+    </figure>
+    <h2>
+     Section 7: MultiPlexing and Persistent Connections
+    </h2>
+    <p>
+     MultiPlexing and Persistent connections
+    </p>
+    <p>
+     (This command creates a persistent connection 60 seconds after the session ends)
+    </p>
+    <figure class="figure">
+     <img alt="Figure 129 - SSH multiplexing command using persistent connection options" loading="lazy" src="p066_Figure_129_-_SSH_multiplexing_command_using_persistent_connection_options.png"/>
+     <figcaption>
+      Figure 129 - SSH multiplexing command using persistent connection options
+     </figcaption>
+    </figure>
+    <p>
+     Logout Output:
+    </p>
+    <figure class="figure">
+     <img alt="Figure 130 - Output of the multiplexed persistent SSH connection (Difference is that there is a “shared connection”" loading="lazy" src="p066_Figure_130_-_Output_of_the_multiplexed_persistent_SSH_connection_Difference_is_t.png"/>
+     <figcaption>
+      Figure 130 - Output of the multiplexed persistent SSH connection (Difference is that there is a “shared connection”
+     </figcaption>
+    </figure>
+    <h2>
+     Section 8: Advanced SSH Options
+    </h2>
+    <p>
+     Logging in with a different key
+    </p>
+    <p>
+     Connects using a specified private key file instead of the default key
+    </p>
+    <figure class="figure">
+     <img alt="Figure 131 - SSH login using a specified private key file" loading="lazy" src="p067_Figure_131_-_SSH_login_using_a_specified_private_key_file.jpeg"/>
+     <figcaption>
+      Figure 131 - SSH login using a specified private key file
+     </figcaption>
+    </figure>
+    <p>
+     SSH Debug (Verbose Mode)
+    </p>
+    <p>
+     Enables verbose mode and verbose output which can be used for diagnosing issues
+    </p>
+    <figure class="figure">
+     <img alt="Figure 132 - Verbose SSH session output used for debugging" loading="lazy" src="p067_Figure_132_-_Verbose_SSH_session_output_used_for_debugging.png"/>
+     <figcaption>
+      Figure 132 - Verbose SSH session output used for debugging
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 133 - Additional verbose SSH debug output during the session" loading="lazy" src="p068_Figure_133_-_Additional_verbose_SSH_debug_output_during_the_session.png"/>
+     <figcaption>
+      Figure 133 - Additional verbose SSH debug output during the session
+     </figcaption>
+    </figure>
+    <p>
+     Logging out in verbose mode (Prints out how many bytes were used and exit status before closing the connection)
+    </p>
+    <figure class="figure">
+     <img alt="Figure 134 - Verbose logout output showing bytes transferred and exit status" loading="lazy" src="p068_Figure_134_-_Verbose_logout_output_showing_bytes_transferred_and_exit_status.png"/>
+     <figcaption>
+      Figure 134 - Verbose logout output showing bytes transferred and exit status
+     </figcaption>
+    </figure>
+    <h3>
+     Difference between Verbose Mode and Normal Mode
+    </h3>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Normal SSH Mode
+       </th>
+       <th>
+        Verbose Mode
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Only prints out the results of the connection attempt.
+       </td>
+       <td>
+        Prints debugging information such as port number used, file path of the pubkey.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Only prints “logout” when logging out.
+       </td>
+       <td>
+        Prints how many bytes were used every second and the exit status when logging out.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Used for logging in.
+       </td>
+       <td>
+        Used for Identifying bugs in SSH Configuration.
+       </td>
+      </tr>
+     </table>
+    </div>
+    <p>
+     Limiting Bandwith speed with SCP
+    </p>
+    <p>
+     This limits how much bandwith the file transfer uses which reduce the chance of affecting the performance of a shared network [26].
+    </p>
+    <figure class="figure">
+     <img alt="Figure 135 - SCP bandwidth limiting command output" loading="lazy" src="p069_Figure_135_-_SCP_bandwidth_limiting_command_output.png"/>
+     <figcaption>
+      Figure 135 - SCP bandwidth limiting command output
+     </figcaption>
+    </figure>
+    <p>
+     Lab 3 Reflection
+    </p>
+    <p>
+     Lab 3 has taught how Nmap is used to identify live machines, scanning ports, detecting the OS a machine is using and creating custom scripts to detect vulnerabilities or check performance. Using every scan type has revealed that no scan is perfect, but each scan is built for a specific purpose as each scan involves a trade-off between coverage, speed, stealth and the required access level like the Syn scan which is slower and stealthier than the TCP scan, but the downside is that it requires root access. The NSE Vulnerability script revealed that NMAP could be converted from a reconnaissance tool, into a vulnerability scanner that returned findings including exposed WordPress paths, potential CSRF Vulnerabilities and username Enumeration which complement the WPscan exercise very well.
+    </p>
+    <p>
+     The SSH part of the lab has taught how SSH operates beyond remotely logging into a machine. Key based authentication showed the weaknesses of password logins because once the RSA key pair was copied to the WordPress server, passwordless login was successful without transmitting passwords. The file transfer comparison between SCP and SFTP revealed that there one is not better than the other, If users need to quickly copy files, then SCP is good but if the connection is unstable or need to remotely manage files that don’t just include copying then SFTP is the better alternative. Verbose mode proved itself to be good for debugging failed connections by showing which key files are checked and which cipher algorithms were used.
+    </p>
+    <h2>
+     Strengths and Weaknesses
+    </h2>
+    <p>
+     Nmap NSE Scripting capabilities makes it highly adaptable as this port scanner can run targeted checks for CVE’s, enumerate http directories or test database configurations. The range of output formats makes it suitable for both manual review and automatic pipeline integration. Nmap becomes unreliable when firewalls are active on the target machine due to ports becoming filtered and being unable to detect the Operating System. This suggests that Nmap’s effectiveness depends on the network environment and should not be treated as the ultimate tool in securely configured networks.
+    </p>
+    <p>
+     SSH encrypts all transmitted data making it securer than alternatives who use plaintext to transmit data. Key based authentication removes the risk of brute forcing password when setup correctly however a major risk is that if password authentication is not disabled after setting up key-based login, then the server remains vulnerable to brute force attacks. Additionally, SSH tunnelling, while useful for legitimate purposes, can be exploited by attackers to bypass firewalls and steal data through an encrypted channel that may not be inspected by network monitoring tools. The lab also showed that bandwidth must be actively limited using the -l flag with SCP, since by default SCP will consume as much bandwidth as available, which could cause disruption on shared networks.
+    </p>
+   </section>
+   <section>
+    <h1>
+     Week 9: Vulnerability Scanning &amp; Mitigation
+    </h1>
+    <p>
+     Nessus is a scanner used for scanning network vulnerabilities to identify security weaknesses or vulnerabilities before cyberattacks can exploit them. Nessus can find software flaws, missing patches, malware and misconfiguration errors across a wide range of operating systems, devices and applications used in organizations [27]. It also provides configuration, compliance and security audits that enable IT teams to expose previously unknown vulnerabilities that make the business susceptible to cyberattacks and data breaches. Furthermore, Nessus supports multiple vulnerability scoring systems, including CVSS (Common Vulnerability Scoring System) so users can prioritize what vulnerabilities need solving first [27] .
+    </p>
+    <h2>
+     Installing Nessus
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 136 - Nessus installation process shown in the terminal" loading="lazy" src="p070_Figure_136_-_Nessus_installation_process_shown_in_the_terminal.png"/>
+     <figcaption>
+      Figure 136 - Nessus installation process shown in the terminal
+     </figcaption>
+    </figure>
+    <h2>
+     Nessus initializing:
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 137 - Nessus initialization page" loading="lazy" src="p071_Figure_137_-_Nessus_initialization_page.jpeg"/>
+     <figcaption>
+      Figure 137 - Nessus initialization page
+     </figcaption>
+    </figure>
+    <h2>
+     Wordpress Configuration
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 138 - WordPress scan target configuration in Nessus" loading="lazy" src="p071_Figure_138_-_WordPress_scan_target_configuration_in_Nessus.png"/>
+     <figcaption>
+      Figure 138 - WordPress scan target configuration in Nessus
+     </figcaption>
+    </figure>
+    <h2>
+     Scan configuration
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 139 - WordPress scan type configuration in Nessus" loading="lazy" src="p072_Figure_139_-_WordPress_scan_type_configuration_in_Nessus.png"/>
+     <figcaption>
+      Figure 139 - WordPress scan type configuration in Nessus
+     </figcaption>
+    </figure>
+    <h2>
+     Scan Type Configuration
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 140 - WordPress scan plugin settings in Nessus" loading="lazy" src="p072_Figure_140_-_WordPress_scan_plugin_settings_in_Nessus.jpeg"/>
+     <figcaption>
+      Figure 140 - WordPress scan plugin settings in Nessus
+     </figcaption>
+    </figure>
+    <p>
+     Inputting WordPress credentials so Nessus can access the WordPress server and scan it
+    </p>
+    <figure class="figure">
+     <img alt="Figure 141 - Inserted Wordpress Login details in the credentials section" loading="lazy" src="p073_Figure_141_-_Inserted_Wordpress_Login_details_in_the_credentials_section.jpeg"/>
+     <figcaption>
+      Figure 141 - Inserted Wordpress Login details in the credentials section
+     </figcaption>
+    </figure>
+    <h2>
+     WordPress Report
+    </h2>
+    <p>
+     A network scan of the WordPress server was conducted using it’s IP address and scanned for all web vulnerabilities and all ports to locate as much vulnerabilities as possible. According to figure 142 and figure 117, 43 critical risk, 189 high risk, 133 medium risk and 17 low risk issues were found on WordPress such as python and OpenSSH vulnerabilities. One of the low-risk issue was a timestamp request data disclosure. The blue information parts are details about the systems configuration and not vulnerabilities. Out of all the vulnerabilities, the critical risk are the ones that needs the most prioritizing due to them having the most potential of causing the most damage but since there are so many, the CVSS score and the effect on the system should  be used to determine which one to prioritize first and based on these 2 factors it would be best to patch the ubuntu and the python vulnerabilities first due to not only having the highest CVSS score but also enabling the execution of remote code.
+    </p>
+    <p>
+     Below is a table containing details about some of the vulnerabilities found, security implications and some countermeasures which was found by following the plugin links provided in the report.
+    </p>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Vulnerability
+       </th>
+       <th>
+        Brief description
+       </th>
+       <th>
+        Effect on the system
+       </th>
+       <th>
+        Risk level
+       </th>
+       <th>
+        Mitigation strategies
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Python vulnerabilities (USN-6891-1)
+       </td>
+       <td>
+        Multiple Python package flaws on the Ubuntu host.
+       </td>
+       <td>
+        Enable remote code execution, service compromise and application instability.
+       </td>
+       <td>
+        Critical
+       </td>
+       <td>
+        Update Ubuntu security, update Python-related packages, and restart dependent services.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        klibc vulnerabilities (USN-6736-1)
+       </td>
+       <td>
+        Vulnerabilities in the low-level boot/init utility library.
+       </td>
+       <td>
+        Could affect early boot components and allow serious system-level compromise.
+       </td>
+       <td>
+        Critical
+       </td>
+       <td>
+        Patch klibc through OS package manager and check updated package versions.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        libxml2 vulnerabilities (USN-7302-1)
+       </td>
+       <td>
+        XML parsing flaws in libxml2.
+       </td>
+       <td>
+        Malicious XML input could trigger crashes, memory corruption, or code execution in apps that use lbxml2.
+       </td>
+       <td>
+        Critical
+       </td>
+       <td>
+        Update libxml2, review applications that parse XML, and disable unnecessary XML features.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Apache HTTP Server vulnerabilities (USN-5942-1)
+       </td>
+       <td>
+        Critical Apache flaws on the web server.
+       </td>
+       <td>
+        Attackers may exploit the web service directly, leading to compromise or denial of service.
+       </td>
+       <td>
+        Critical
+       </td>
+       <td>
+        Upgrade Apache, disable unused modules and harden configuration,
+       </td>
+      </tr>
+      <tr>
+       <td>
+        OpenSSH vulnerabilities (USN-6560-1)
+       </td>
+       <td>
+        Critical issues in the SSH service used for remote administration.
+       </td>
+       <td>
+        May allow unauthorized remote access, code execution, or credential compromise.
+       </td>
+       <td>
+        Critical
+       </td>
+       <td>
+        Update OpenSSH, restrict SSH exposure by firewall, disable password auth, and enforce SSH keys.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        LibTIFF vulnerabilities (USN-7783-1)
+       </td>
+       <td>
+        Image-processing flaws in LibTIFF.
+       </td>
+       <td>
+        crash services or potentially enable code execution.
+       </td>
+       <td>
+        High
+       </td>
+       <td>
+        Update LibTIFF and avoid processing untrusted image files until updated.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Sudo vulnerabilities (USN-7604-1)
+       </td>
+       <td>
+        Weaknesses in sudo, the privilege escalation utility.
+       </td>
+       <td>
+        A local user could gain elevated privileges or bypass configured restrictions.
+       </td>
+       <td>
+        High
+       </td>
+       <td>
+        Patch sudo and limit privileged access to essential admins only.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        GNU C Library vulnerabilities (USN-8005-1)
+       </td>
+       <td>
+        Security issues in glibc, a core system library.
+       </td>
+       <td>
+        Affects many processes across the system and may lead to crashes or exploitation.
+       </td>
+       <td>
+        High
+       </td>
+       <td>
+        Apply OS updates promptly and restart critical services or reboot if required.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Twisted vulnerability (USN-6988-2)
+       </td>
+       <td>
+        Vulnerability in the Twisted Python networking framework.
+       </td>
+       <td>
+        Could affect Python-based network services and expose them to denial of service or abuse.
+       </td>
+       <td>
+        High
+       </td>
+       <td>
+        Upgrade Twisted-related packages and verify any Python services using the library.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Vim &lt; 9.2.0073 Command Injection
+       </td>
+       <td>
+        A command injection issue in Vim.
+       </td>
+       <td>
+        Could lead to unauthorized command execution.
+       </td>
+       <td>
+        High
+       </td>
+       <td>
+        Upgrade Vim and avoid opening untrusted files directly on the host.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        PHP vulnerabilities (USN-6757-1)
+       </td>
+       <td>
+        Multiple PHP flaws affecting the web stack.
+       </td>
+       <td>
+        Could expose the WordPress site to code execution, data leakage, or service disruption.
+       </td>
+       <td>
+        Medium
+       </td>
+       <td>
+        Update PHP packages, validate plugin/theme compatibility, and restart PHP/Apache services.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        PAM vulnerability (USN-6588-1)
+       </td>
+       <td>
+        Weakness in Pluggable Authentication Modules.
+       </td>
+       <td>
+        May affect authentication handling and local account security.
+       </td>
+       <td>
+        Medium
+       </td>
+       <td>
+        Patch PAM packages and review authentication policies on the server.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        MySQL vulnerabilities (USN-6615-1)
+       </td>
+       <td>
+        Database-related security issues in MySQL.
+       </td>
+       <td>
+        Could impact database integrity, availability, or confidentiality.
+       </td>
+       <td>
+        Medium
+       </td>
+       <td>
+        Update MySQL and  back up databases before patching
+       </td>
+      </tr>
+      <tr>
+       <td>
+        WordPress User Enumeration
+       </td>
+       <td>
+        The site may allow attackers to identify valid WordPress usernames.
+       </td>
+       <td>
+        Brute-force attacks become easier against admin and user accounts.
+       </td>
+       <td>
+        Medium
+       </td>
+       <td>
+        Disable enumeration where possible, use security plugins, enforce MFA, and reduce the amount of login attempts.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Web Application Potentially Vulnerable to Clickjacking
+       </td>
+       <td>
+        Pages may be embeddable in malicious frames.
+       </td>
+       <td>
+        Users could be tricked into clicking hidden elements, causing unintended actions.
+       </td>
+       <td>
+        Medium
+       </td>
+       <td>
+        Add X-Frame-Options or CSP frame-ancestors headers and test framing protections.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Open VM Tools vulnerability (USN-6257-1)
+       </td>
+       <td>
+        Low-severity issue in VM guest tools.
+       </td>
+       <td>
+        Limited direct impact.
+       </td>
+       <td>
+        Low
+       </td>
+       <td>
+        Update Open VM Tools through the package manager.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Intel Microcode vulnerability (USN-8068-1)
+       </td>
+       <td>
+        CPU microcode-related security issue.
+       </td>
+       <td>
+        Could expose the system to hardware-level or processor-related weaknesses.
+       </td>
+       <td>
+        Low
+       </td>
+       <td>
+        Apply vendor microcode and OS updates, then reboot if required.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Python vulnerability (USN-7218-1)
+       </td>
+       <td>
+        Lower-severity Python issue on the system.
+       </td>
+       <td>
+        Could cause  instability if it remains unpatched.
+       </td>
+       <td>
+        Low
+       </td>
+       <td>
+        Update Python packages and remove any Python components that are not in use.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        OpenSSH vulnerabilities (USN-8090-1)
+       </td>
+       <td>
+        Lower-severity SSH issues remain present.
+       </td>
+       <td>
+        weakens the remote administration surface.
+       </td>
+       <td>
+        Low
+       </td>
+       <td>
+        Update OpenSSH, restrict access to trusted IPs, and review SSH hardening settings.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        ICMP Timestamp Request Remote Date Disclosure
+       </td>
+       <td>
+        The host responds to ICMP timestamp requests and reveals time information.
+       </td>
+       <td>
+        Helps attackers with reconnaissance and host fingerprinting.
+       </td>
+       <td>
+        Low
+       </td>
+       <td>
+        Disable ICMP timestamp responses at the firewall or host level.
+       </td>
+      </tr>
+     </table>
+    </div>
+    <figure class="figure">
+     <img alt="Figure 142 - Tenable Nessus WordPress report cover page" loading="lazy" src="p076_Figure_142_-_Tenable_Nessus_WordPress_report_cover_page.png"/>
+     <figcaption>
+      Figure 142 - Tenable Nessus WordPress report cover page
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 143 - Nessus WordPress vulnerability summary dashboard" loading="lazy" src="p076_Figure_143_-_Nessus_WordPress_vulnerability_summary_dashboard.png"/>
+     <figcaption>
+      Figure 143 - Nessus WordPress vulnerability summary dashboard
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 144 - List of Criticial Risk Vulnerabilities" loading="lazy" src="p077_Figure_144_-_List_of_Criticial_Risk_Vulnerabilities.png"/>
+     <figcaption>
+      Figure 144 - List of Criticial Risk Vulnerabilities
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 145 - List of High Risk Vulnerabilities" loading="lazy" src="p078_Figure_145_-_List_of_High_Risk_Vulnerabilities.png"/>
+     <figcaption>
+      Figure 145 - List of High Risk Vulnerabilities
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 146 - List of Medium Risk Vulnerabilities" loading="lazy" src="p079_Figure_146_-_List_of_Medium_Risk_Vulnerabilities.png"/>
+     <figcaption>
+      Figure 146 - List of Medium Risk Vulnerabilities
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 147 - List of Low Risk Vulnerabilities and 2 Info Attributes" loading="lazy" src="p080_Figure_147_-_List_of_Low_Risk_Vulnerabilities_and_2_Info_Attributes.png"/>
+     <figcaption>
+      Figure 147 - List of Low Risk Vulnerabilities and 2 Info Attributes
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 148- List of Info Attributes" loading="lazy" src="p080_Figure_148-_List_of_Info_Attributes.png"/>
+     <figcaption>
+      Figure 148- List of Info Attributes
+     </figcaption>
+    </figure>
+    <h2>
+     MSC Gateway Configuration
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 148 - MSC Gateway target configuration in Nessus" loading="lazy" src="p081_Figure_148_-_MSC_Gateway_target_configuration_in_Nessus.png"/>
+     <figcaption>
+      Figure 148 - MSC Gateway target configuration in Nessus
+     </figcaption>
+    </figure>
+    <h2>
+     Ubuntu Gateway Scan Type Configuration
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 149 - Ubuntu MSC Gateway scan type configuration in Nessus" loading="lazy" src="p081_Figure_149_-_Ubuntu_MSC_Gateway_scan_type_configuration_in_Nessus.png"/>
+     <figcaption>
+      Figure 149 - Ubuntu MSC Gateway scan type configuration in Nessus
+     </figcaption>
+    </figure>
+    <h2>
+     Ubuntu MSC Gateway Scan type
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 150 - Ubuntu MSC Gateway plugin settings in Nessus" loading="lazy" src="p082_Figure_150_-_Ubuntu_MSC_Gateway_plugin_settings_in_Nessus.png"/>
+     <figcaption>
+      Figure 150 - Ubuntu MSC Gateway plugin settings in Nessus
+     </figcaption>
+    </figure>
+    <h2>
+     Inputting MSC Gateway credentials so Nessus can access the MSC Gateway and scan it
+    </h2>
+    <figure class="figure">
+     <img alt="Figure 151 - Inserted the MSC Gateway Login Details in the Credentials section" loading="lazy" src="p082_Figure_151_-_Inserted_the_MSC_Gateway_Login_Details_in_the_Credentials_section.png"/>
+     <figcaption>
+      Figure 151 - Inserted the MSC Gateway Login Details in the Credentials section
+     </figcaption>
+    </figure>
+    <h2>
+     MSC Gateway report
+    </h2>
+    <p>
+     A network scan of the Gateway server was conducted using it’s IP address and scanned for all web vulnerabilities and all ports to locate as much vulnerabilities as possible. The MSC Gateway report only located 1 high risk vulnerability, 5 medium risk vulnerabilities and 2 low risk vulnerabilities. Based on the report there are not any critical vulnerabilities but the vulnerability that needs to be prioritized should the VIM command injection due to it having the highest risk level and CVSS score.
+    </p>
+    <p>
+     Below is a table containing some information about the vulnerability and security implications it could have which was found by following the plugin links provided in the generated Nessus report.
+    </p>
+    <div class="table-wrap">
+     <table>
+      <tr>
+       <th>
+        Vulnerability
+       </th>
+       <th>
+        Brief description
+       </th>
+       <th>
+        Effect on the system
+       </th>
+       <th>
+        Risk level
+       </th>
+       <th>
+        Mitigation strategies
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Vim &lt; 9.2.0073 Command Injection (GHSA-m3xh-9434-g336)
+       </td>
+       <td>
+        A security flaw  allows command execution through dangreous editing actions.
+       </td>
+       <td>
+        Execution of unauthorized commands, leading to system compromise or privilege abuse.
+       </td>
+       <td>
+        High
+       </td>
+       <td>
+        Upgrade Vim to latest, and limit the users who can edit untrusted files.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Vim &lt; 9.2.0077 Heap-based Buffer Overflow
+       </td>
+       <td>
+        Memory handling flaw in Vim that can corrupt heap memory.
+       </td>
+       <td>
+        May cause crashes, denial of service or possibly code execution
+       </td>
+       <td>
+        Medium
+       </td>
+       <td>
+        Update Vim and remove unused packages,
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Vim &lt; 9.1.2132 Buffer Overflow
+       </td>
+       <td>
+        buffer overflow issue in Vim caused by improper bounds checking.
+       </td>
+       <td>
+        Open a path for arbitrary code execution if exploited.
+       </td>
+       <td>
+        Medium
+       </td>
+       <td>
+        Update Vim and reduce exposure to untrusted content.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Vim &lt; 9.2.0075 Heap-based Buffer Underflow
+       </td>
+       <td>
+        Improper memory access before the start of a buffer in Vim.
+       </td>
+       <td>
+        May trigger crashes or unpredictable behavior
+       </td>
+       <td>
+        Medium
+       </td>
+       <td>
+        Update Vim, validate packages installed on the host and enforce change control for local software.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        ICMP Timestamp Request Remote Date Disclosure
+       </td>
+       <td>
+        The host responds to ICMP timestamp requests and reveals system time information.
+       </td>
+       <td>
+        Helps attackers fingerprint the target and find good timing for reconnaissance.
+       </td>
+       <td>
+        Low
+       </td>
+       <td>
+        Disable ICMP timestamp responses on thefirewall
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Vim &lt; 9.2.0078 Stack-Buffer-Overflow
+       </td>
+       <td>
+        Stack memory corruption issue in Vim.
+       </td>
+       <td>
+        application crashes and limited exploitation opportunities.
+       </td>
+       <td>
+        Low
+       </td>
+       <td>
+        Patch Vim to latest  version
+       </td>
+      </tr>
+     </table>
+    </div>
+    <figure class="figure">
+     <img alt="Figure 152  - MSC Gateway Report Cover Page" loading="lazy" src="p084_Figure_152_-_MSC_Gateway_Report_Cover_Page.png"/>
+     <figcaption>
+      Figure 152  - MSC Gateway Report Cover Page
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 153 - Nessus MSC Gateway vulnerability summary dashboard" loading="lazy" src="p085_Figure_153_-_Nessus_MSC_Gateway_vulnerability_summary_dashboard.png"/>
+     <figcaption>
+      Figure 153 - Nessus MSC Gateway vulnerability summary dashboard
+     </figcaption>
+    </figure>
+    <h2>
+     Analysis and Comparison of both reports
+    </h2>
+    <p>
+     As a reminder, the WordPress server had 43 critical risk, 189 high risk, 133 medium risk and 17 low risk issues while the MSC gateway located 1 high risk vulnerability, 5 medium risk vulnerabilities and 2 low risks. If the 2 reports are compared with each other, it seems as if the MSC Gateway is more secure, but this is because the MSC Gateway hasn’t been modified as much as the WordPress server because the WordPress Server has SSH Enabled and the fact that vulnerable plugins and themes have been purposely installed on WordPress. If the plugins and themes are updated, then it’s likely that the amount of WordPress vulnerabilities will be patched and will be able to gain a fairer evaluation.
+    </p>
+    <p>
+     Based on the comparison between both reports, It would be best to prioritize fixing the WordPress Server first due to it having much more high risk and critical risk issues affecting Python, Apache, OpenSSH and PHP and can enable the execution of remote code. The MSC Gateway on the other hand is not risk free but has a smaller set of findings focused around Vim-Related Issues.
+    </p>
+    <p>
+     The bar chart shows that the WordPress server has far more findings in every risk category than the MSC Gateway, especially at the critical and high-risk vulnerabilities. The pie chart shows that while WordPress has many findings overall, not all of them have the same level of urgency, so prioritisation should focus first on the critical and high-severity risk vulnerabilities instead of treating every result equally
+    </p>
+    <figure class="figure">
+     <img alt="Figure 154 - Bar Chart comparing the vulnerability risk findings between two machines" loading="lazy" src="p086_Figure_154_-_Bar_Chart_comparing_the_vulnerability_risk_findings_between_two_mac.png"/>
+     <figcaption>
+      Figure 154 - Bar Chart comparing the vulnerability risk findings between two machines
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 155 - Pie Chart Showing Wordpress Severity Findings" loading="lazy" src="p087_Figure_155_-_Pie_Chart_Showing_Wordpress_Severity_Findings.png"/>
+     <figcaption>
+      Figure 155 - Pie Chart Showing Wordpress Severity Findings
+     </figcaption>
+    </figure>
+    <figure class="figure">
+     <img alt="Figure 156 - Pie Chart showing Ubuntu MSC Gateway Severity Findings" loading="lazy" src="p087_Figure_156_-_Pie_Chart_showing_Ubuntu_MSC_Gateway_Severity_Findings.png"/>
+     <figcaption>
+      Figure 156 - Pie Chart showing Ubuntu MSC Gateway Severity Findings
+     </figcaption>
+    </figure>
+    <h2>
+     Reflection
+    </h2>
+    <p>
+     This lab has taught how to use Nessus to identify local and remote vulnerabilities using their network scan and create professional reports that discuss the vulnerabilities and how to locate them. While the scans showed that the WordPress server had a significantly larger number of findings than the MSC Gateway, including critical, high, medium, and low-severity vulnerabilities, it’s important to compare these findings across systems. The gateway seems to be more secure, but this is because there are fewer alerts due to less software running and fewer ports open, which reduces the possibilities of issues. but on the other hand, the WordPress system contains 1 plugin with 26 vulnerabilities on purpose to test vulnerabilities which improves the risk level. This difference is important because, unless the actual context and background of the systems is taken into consideration, the number of risks won't reveal which system is safer.
+    </p>
+    <p>
+     The most important lesson learnt is that just because a system has a report with less vulnerabilities does not automatically mean a system is secure because the gateways lower amount of vulnerability findings would create a false sense of security if the context about the WordPress server’s intentional modifications was not revealed.
+    </p>
+    <p>
+     Another important lesson is deciding what vulnerabilities to patch first, Critical and high-risk vulnerability findings on the WordPress server, especially those affecting important services, should be addressed before low risk vulnerabilities. This shows that Nessus is useful not just for identifying vulnerabilities, but for helping decide what to patch first.
+    </p>
+    <h2>
+     Strengths and Weaknesses
+    </h2>
+    <p>
+     Professional reports can be generated and include CVSS scores and risk level which is essential for prioritizing action based on risk. The plugin architecture means the vulnerability data is constantly being updated and matching findings with the latest information. Nessus does not provide mitigation strategies within the report and must be researched separately on the Nessus website. When setting up Nessus downloading and compiling the plugins can take a very long time and Nessus scans can’t be used until the plugins have finished compiling
+    </p>
+   </section>
+   <section>
+    <h1>
+     References
+    </h1>
+    <p>
+     [1] WPScan, "WPScan User Documentation," WPScan CLI. [Online]. Available: https://github.com/wpscanteam/wpscan/wiki/WPScan-User-Documentation  [Accessed: Feb. 24, 2026].
+    </p>
+    <p>
+     [2] WPscan, “Salon Booking System – Free Version.” [Online]. Available: https://wpscan.com/plugin/salon-booking-system/ ,  [Accessed: Feb. 24, 2026].
+    </p>
+    <p>
+     [3] WPscan, “Salon booking system &lt; 10.8 - Authenticated (Administrator+) SQL Injection.” [Online]. Available: https://wpscan.com/vulnerability/33a5fd05-981b-4e89-bf3e-a4e8a2de2827/  ,  [Accessed: Feb. 25, 2026].
+    </p>
+    <p>
+     [4] 	Wikipedia, "List of most Common Passwords." Wikipedia. Accessed: 24 Feb, 2026. [Online]. Available: https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
+    </p>
+    <p>
+     [5] OWASP Foundation, "A03:2021 – Injection," OWASP Top Ten, 2021. [Online]. Available: https://owasp.org/Top10/A03_2021-Injection/ [Accessed: Mar. 03, 2026].
+    </p>
+    <p>
+     [6] OWASP Foundation, "OWASP Juice Shop Project," 2024. [Online]. Available: https://owasp.org/www-project-juice-shop/ [Accessed: Mar. 03, 2026].
+    </p>
+    <p>
+     [7] PortSwigger, "BurpSuite Documentation," PortSwigger Web Security. [Online]. Available: https://portswigger.net/burp/documentation  [Accessed: Mar. 07, 2026].
+    </p>
+    <p>
+     [8] GeeksforGeeks, “SSH Port Forwarding.” [Online]. Available: https://www.geeksforgeeks.org/computer-networks/ssh-port-forwarding/,  [Accessed: Mar. 12, 2026].
+    </p>
+    <p>
+     [9] GeeksforGeeks, “Introduction to SSH (Secure Shell) Keys.” [Online]. Available: https://www.geeksforgeeks.org/computer-networks/introduction-to-ssh-secure-shell-keys/,
+    </p>
+    <p>
+     [Accessed: Mar. 12, 2026].
+    </p>
+    <p>
+     [10] GeeksforGeeks, “SCP Command in Linux with Examples.” [Online]. Available: https://www.geeksforgeeks.org/linux-unix/scp-command-in-linux-with-examples/,                               [Accessed: Mar. 12, 2026].
+    </p>
+    <p>
+     [11] GeeksforGeeks, “Types of Multiplexing in Data Communications.” [Online]. Available: https://www.geeksforgeeks.org/computer-networks/types-of-multiplexing-in-data-communications/,  [Accessed: Mar. 12, 2026].
+    </p>
+    <p>
+     [12] Nmap Project, “Host Discovery (‘Ping Scanning’),” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/host-discovery.html. [Accessed: Mar. 12, 2026].
+    </p>
+    <p>
+     [13] Nmap Project, “Nmap Reference Guide,” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/man.html. [Accessed: Mar. 12, 2026].
+    </p>
+    <p>
+     [14] Nmap Project, “Port Scanning Techniques,” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/man-port-scanning-techniques.html. [Accessed: Mar. 15, 2026].
+    </p>
+    <p>
+     [15] Nmap Project, “Port Specification and Scan Order,” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/man-port-specification.html. [Accessed: Mar. 15, 2026].
+    </p>
+    <p>
+     [16] Nmap Project, “Service and Version Detection,” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/man-version-detection.html. [Accessed: Mar. 15, 2026].
+    </p>
+    <p>
+     [17] Nmap Project, “OS Detection,” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/man-os-detection.html. [Accessed: Mar. 15, 2026].
+    </p>
+    <p>
+     [18] Nmap Project, “Nmap Scripting Engine,” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/nse.html. [Accessed: Mar. 15, 2026].
+    </p>
+    <p>
+     [19] Nmap Project, “Firewall/IDS Evasion and Spoofing,” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/man-bypass-firewalls-ids.html. [Accessed: Mar. 16, 2026].
+    </p>
+    <p>
+     [20] Nmap Project, “Miscellaneous Options,” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/man-misc-options.html. [Accessed: Mar. 16, 2026].
+    </p>
+    <p>
+     [21] Nmap Project, “TCP Idle Scan (-sI),” Nmap Network Scanning. [Online]. Available: https://nmap.org/book/idlescan.html. [Accessed: Mar. 16, 2026].
+    </p>
+    <p>
+     [22] OpenBSD, “ssh(1) - OpenBSD manual pages.” [Online]. Available: https://man.openbsd.org/ssh.1. [Accessed: Mar. 16, 2026].
+    </p>
+    <p>
+     [23] OpenBSD, “ssh-keygen(1) - OpenBSD manual pages.” [Online]. Available: https://man.openbsd.org/ssh-keygen.1. [Accessed: Mar. 16, 2026].
+    </p>
+    <p>
+     [24] OpenBSD, “sshd(8) - OpenBSD manual pages.” [Online]. Available: https://man.openbsd.org/sshd.8. [Accessed: Mar. 16, 2026].
+    </p>
+    <p>
+     [25] OpenBSD, “scp(1) - OpenBSD manual pages.” [Online]. Available: https://man.openbsd.org/scp.1. [Accessed: Mar. 16, 2026].
+    </p>
+    <p>
+     [26] OpenBSD, “sftp(1) - OpenBSD manual pages.” [Online]. Available: https://man.openbsd.org/sftp.1. [Accessed: Mar. 16, 2026].
+    </p>
+    <p>
+     [27] Tenable, "Nessus Product Overview," Tenable Documentation, 2024. [Online]. Available: https://docs.tenable.com/nessus/Content/GettingStarted.htm [Accessed: Mar. 19, 2026].
+    </p>
+   </section>
+   <a class="top-link" href="#top">
+    Top
+   </a>
+  </div>
+ </body>
+</html>
